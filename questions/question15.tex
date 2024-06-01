@@ -1,0 +1,56 @@
+\section{Полнота системы $\{\max(x, y), \overline{x}\}$ в $P_k$. Функция Вебба. Полнота системы, состоящей только из функции Вебба}
+
+\begin{theorem}
+    Система $\{\max(x, y), \overline{x}\}$ полна в $P_k$.
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Получение констант.
+        Построим сначала константы, начиная с $k - 1$:
+        \[
+            k-1 = \max(x, \ldots, x+k-1).
+        \]
+        Остальные константы получаются при помощи функции $x + 1 \pmod k$.
+        \item Построение функций $I_i(x), i = 0, 1, \ldots, k - 1$:
+        $I_0(x) = \max(x, x+1, \ldots, x+k-2) + 1$;
+        \[
+            I_i(x) = I_0(x - i).
+        \]
+        \item Получение функции $\min(x, y)$ при наличии функции $\sim x$:
+        \[
+            \min(x, y) = \;\sim (\max(\sim x, \sim y)).
+        \]
+        \item Построение произвольной функции $g(x)$ одной переменной.
+        \begin{enumerate}
+            \item Для произвольных $\alpha$, $\beta$ из $E_k$ построим функцию 
+            $
+            \varphi_{\alpha, \beta}(x) = 
+            \begin{cases}
+            \beta,&\text{если $x = \alpha$},\\
+                0,&\text{иначе}
+            \end{cases}
+            $, используя формулу:
+            \[
+                \varphi_{\alpha, \beta}(x) = \max(I_\alpha(x), k-1-\beta) + \beta + 1.
+            \]
+            \item Представление функции $g(x)$:
+            \[
+                g(x) = \max(\varphi_{0, g(0)}(x), \varphi_{1, g(1)}(x), \ldots \varphi_{k-1, g(k-1)}(x)).
+            \]
+        \end{enumerate}
+    \end{enumerate}
+    Таким образом, получем $\sim x$ и выражение системы из теоремы 3 через систему $\{\max(x, y), \overline{x}\}$.
+\end{proof}
+
+\begin{definition}
+    $V_k(x, y) \vcentcolon = \max(x, y) + 1$ --- \textit{функция Вебба}.
+\end{definition}
+
+\begin{theorem}
+    Система $\{V_k(x, y)\}$ полна в $P_k$.
+\end{theorem}
+
+\begin{proof}
+    Из функции Вебба получается отрицание Поста $V_k(x, x) = x + 1 = \overline{x}$. Следовательно, получаем функции $x + i$ ($i = 0, \ldots, k - 1$). Теперь получаем $\max(x, y) = V_k(x, y) + (k - 1)$. Имеем всю полную систему $\{\overline{x}, \max(x, y)\}$.
+\end{proof}

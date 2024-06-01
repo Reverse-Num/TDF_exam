@@ -1,0 +1,186 @@
+\section{Асимптотически наилучший метод (метод Лупанова) построения схем в базисе $\{x\vee y, x \& y, \overline{x}\}$. Асимптотика роста функции Шеннона в этом базисе.}
+
+\begin{theorem}[О. Б. Лупанов]
+    Пусть $n\to \infty$, тогда
+    \[
+        L(n)\leqslant \frac{2^n}{n}\left(1+O\left(\frac{\log n}{n}\right)\right).
+    \]
+\end{theorem}
+
+\begin{proof}
+    Опишем метод, который позволяет для произвольной функции от $n$ переменных построить схему, состоящую не более чем из $\frac{2^n}{n} \left(1+O\left(\frac{\log n}{n}\right)\right)$ элементов.
+
+    Введём натуральный параметр $k$. Таблицу из $2^n$ значений произвольной функции $f(x_1, \ldots, x_n)$ представим в виде прямоугольной таблицы высоты $2^k$ и ширины $2^{n-k}$ как показано на рис. 6.
+    
+    \begin{figure}[ht]
+        \centering
+        \begin{center}
+            % Это магия, хз почему это работает
+            \begin{tikzpicture}[
+                circuit/.style={rectangle, draw=black, minimum size=3mm}, rect/.style={rectangle, draw=blue, minimum width=6mm, minimum height=48mm}
+                ]
+                %Nodes
+                \node (x_n-k+1) at (-1.2, 0.2) {$x_{n-k+1} \ldots x_n$};
+                \node[blue] (func) at (-1.2, 1) {$f(\sigma_1, \ldots, \sigma_n)$};
+                \node (1) at (-1.2, -0.3) {$0 \ldots \ldots \ldots 0$};
+                \node (2) at (-1.2, -0.8) {$\ldots \ldots \ldots \ldots$};
+                \node[blue] (3) at (-1.2, -1.3) {$\sigma_{n-k+1} \ldots \sigma_n$};
+                \node (4) at (-1.2, -1.8) {$\ldots \ldots \ldots \ldots$};
+                \node (5) at (-1.2, -2.25) {$\ldots \ldots \ldots \ldots$};
+                \node (6) at (-1.2, -2.75) {$\ldots \ldots \ldots \ldots$};
+                \node (7) at (-1.2, -3.25) {$\ldots \ldots \ldots \ldots$};
+                \node (8) at (-1.2, -3.75) {$\ldots \ldots \ldots \ldots$};
+                \node (9) at (-1.2, -4.2) {$\ldots \ldots \ldots \ldots$};
+                \node (10) at (-1.2, -4.6) {$1 \ldots \ldots \ldots 1$};
+                \node[scale = 1.25] (A1) at (3, -0.5) {$A_1$};
+                \node[scale = 1.25] (Ai) at (3, -2.5) {$A_i$};
+                \node[scale = 1.25] (Ap) at (3, -4.4) {$A_p$};
+                \node (a) at (0.5, 1.7) {$0$};
+                \node[scale = 2] (dots1) at (0.5, 1.2) {$\vdots$};
+                \node (b) at (0.5, 0.3) {$0$};
+                \node[scale = 2] (dots2) at (1.5, 1.8) {$\vdots$};
+                \node[scale = 2] (dots3) at (1.5, 0.8) {$\vdots$};
+                \node[blue] (e) at (2.5, 1.7) {$\sigma_1$};
+                \node[scale = 2, blue] (dots4) at (2.5, 1.2) {$\vdots$};
+                \node[blue] (f) at (2.5, 0.3) {$\sigma_{n-k}$};
+                \node[scale = 2] (dots5) at (3.5, 1.8) {$\vdots$};
+                \node[scale = 2] (dots6) at (3.5, 0.8) {$\vdots$};
+                \node[scale = 2] (dots7) at (4.5, 1.8) {$\vdots$};
+                \node[scale = 2] (dots8) at (4.5, 0.8) {$\vdots$};
+                \node (c) at (5.5, 1.7) {$1$};
+                \node[scale = 2] (dots9) at (5.5, 1.2) {$\vdots$};
+                \node (d) at (5.5, 0.3) {$1$};
+                \node[circuit, blue](square) at (2.5, -1.3) {};
+                \node (x_1) at (6.4, 1.7) {$x_1$};
+                \node[scale = 2] (dots10) at (6.4, 1.2) {$\vdots$};
+                \node (x_n) at (6.4, 0.3) {$x_n$};
+                %Lines
+                \draw (-2.4, 0) -- (6, 0);
+                \draw (0, -1) -- (6, -1);
+                \draw (0, -2) -- (6, -2);
+                \draw (0, -3) -- (6, -3);
+                \draw (0, -4) -- (6, -4);
+                \draw (-2.4, -4.8) -- (6, -4.8);
+                \draw (0, 2) -- (0, -4.8);
+                \draw (6, 2) -- (6, -4.8);
+                \draw[blue] (-2.2, 0.7) -- (-0.1, 0.7);
+                \draw[arrows = {-Latex[width=3pt, length=3pt]}, blue] (-0.1, 0.7) -- (square);
+                \draw[arrows = {Latex[width=3pt, length=3pt]-Latex[width=3pt, length=3pt]}] (4.5, 0) -- node[right=1mm, red] {$s$} (4.5, -1);
+                \draw[arrows = {Latex[width=3pt, length=3pt]-Latex[width=3pt, length=3pt]}] (4.5, -1) -- node[right=1mm, red] {$s$} (4.5, -2);
+                \draw[arrows = {Latex[width=3pt, length=3pt]-Latex[width=3pt, length=3pt]}] (4.5, -2) -- node[right=1mm, red] {$s$} (4.5, -3);
+                \draw[arrows = {Latex[width=3pt, length=3pt]-Latex[width=3pt, length=3pt]}] (4.5, -3) -- node[right=1mm, red] {$s$} (4.5, -4);
+                \draw[arrows = {Latex[width=3pt, length=3pt]-Latex[width=3pt, length=3pt]}] (4.5, -4) -- node[right=1mm, red] {$s'$} (4.5, -4.8);
+            \end{tikzpicture}
+        \end{center}
+        \caption{Таблица}
+    \end{figure}
+
+    Пусть $s$ --- также натуральный параметр, причём $k, s, \frac{2^k}{s} \to \infty$,  Таблицу разобъём на горизонтальные полосы $A_1, \ldots, A_p$ высоты $s$ (полоса $A_p$ имеет высоту $s' \leqslant s$), $p = \ceil{\frac{2^k}{s}}$.
+    
+    Через $f_i(x_1, \ldots, x_n)$ обозначим функцию, значения которой совпадают со значениями функции $f(x_1, \ldots, x_n)$ на полосе $A_i$, и равны 0 на остальных полосах. Тогда
+    \[
+        f(x_1, \ldots, x_n) = \bigvee_{i=1}^p f_i(x_1,\ldots,x_n).
+    \]
+    
+    Теперь для каждой пары $(i, \widetilde{\tau})$, $i=1, \ldots, p$, $\widetilde{\tau}\in E^s$ (или $\widetilde{\tau} \in E^{s'}$ при $i = p$) --- последовательность 0 и 1 длины $s$ или $s'$. Обозначим через $f_{i,\widetilde{\tau}}(x_1, \ldots, x_n)$ функцию, таблица которой получается из таблицы функции $f_i(x_1, \ldots, x_n)$ путем обнуления всех столбцов полосы $A_i$, значения в которых не сопадают с набором $\widetilde{\tau}$. Тогда
+    \[
+        f(x_1, \ldots, x_n) = \bigvee_{i=1}^p \bigvee_{\widetilde{\tau}} f_{i, \widetilde{\tau}}(x_1,\ldots,x_n).
+    \]
+    
+    Наконец, у каждой функции $f_{i,\widetilde{\tau}}(x_1, \ldots, x_n)$ можно разделить переменные, точнее представить эту функцию в виде:
+    \[
+        f_{i, \widetilde{\tau}}(x_1,\ldots,x_n) = f^{(1)}_{i, \widetilde{\tau}}(x_1, \ldots, x_{n-k})f^{(2)}_{i, \widetilde{\tau}}(x_{n-k+1}, \ldots, x_{n}),
+    \]
+    где в таблице функции $f^{(1)}_{i, \widetilde{\tau}}(x_1, \ldots, x_{n-k})$ обращается в единицу только на наборах $(\sigma_1$, $\ldots, \sigma_{n-k})$, таких что в соответствующих этим наборам столбцах полосы $A_i$ находится набор $\widetilde{\tau}$, т.\,е. в таблице этой функции будут стоять столбцы 1 на местах, где стоят столбцы $\widetilde{\tau}$ в полосе $A_i$. А столбец значений функции $f^{(2)}_{i,\widetilde{\tau}}(x_{n-k+1}, \ldots, x_n)$ совпадает с набором $\widetilde{\tau}$ на полосе $A_i$, а на наборах вне полосы $A_i$ функция $f^{(2)}_{(i,\widetilde{\tau})}(x_{n-k+1}, \ldots, x_n)$ равна 0, т.е в таблице этой матрицы будет столбец $\widetilde{\tau}$ в полоске $A_i$, а в остальных местах $0$.
+
+    Возвращаясь к представлению функции $f$, окончательно получаем:
+    \[
+         f(x_1, \ldots, x_n) = \bigvee_{i=1}^p \bigvee_{\widetilde{\tau}} f^{(1)}_{i, \widetilde{\tau}}(x_1, \ldots, x_{n-k})f^{(2)}_{i, \widetilde{\tau}}(x_{n-k+1}, \ldots, x_{n}).
+    \]
+    
+    Схема $S$, реализующая функцию $f(x_1, \ldots, x_n)$, будет состоять из подсхем $S_i$ --- см. рис. 7.
+
+    \begin{figure}[t]
+        \centering
+        \begin{tikzpicture}[
+            smallrectangle/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm, minimum width=4cm, minimum height=0.8cm}, bigrectangle/.style={rectangle, draw=blue!60, fill=blue!5, very thick, minimum size=5mm, minimum width=9cm, minimum height=0.8cm}
+            ]
+            %Nodes
+            \node[bigrectangle](big_rectangle1) at (4.5,-3.2) {Реализация всех $f_{i, \widetilde{\tau}}$};
+            \node[bigrectangle](big_rectangle2) at (4.5,-4.8) {<<$\vee$>>};
+            \node[smallrectangle](left_rectangle1) at (2,0)  {$K_{n-k}(x_1, \ldots, x_{n-k})$};
+            \node[smallrectangle](right_rectangle1) at (7,0) {$K_k(x_{n-k+1}, \ldots, x_n)$};
+            \node[smallrectangle](left_rectangle2) at (2, -1.6)  {Реализация всех $f^{(1)}_{i, \widetilde{\tau}}$};
+            \node[smallrectangle](right_rectangle2) at (7, -1.6) {Реализация всех $f^{(2)}_{i, \widetilde{\tau}}$};
+            \node (x1) at (0.5, 1.2) {$x_1$};
+            \node[scale=2] (dots-1) at (2, 0.8) {$\ldots$};
+            \node (xn/2-1) at (3.5, 1.2) {$x_{n-k}$};
+            \node (xn/2+1) at (5.5, 1.2) {$x_{n-k+1}$};
+            \node[scale=2] (dots0) at (7, 0.8) {$\ldots$};
+            \node (xn) at (8.5, 1.2) {$x_n$};
+            \node (f) at (4.5, -6.4) {$f$};
+            \node[red, left=2.1cm] (S1) at (left_rectangle1) {$S_1$};
+            \node[red, left=2.1cm] (S3) at (left_rectangle2) {$S_3$};
+            \node[red, right=2.1cm] (S2) at (right_rectangle1) {$S_2$};
+            \node[red, right=2.1cm] (S4) at (right_rectangle2) {$S_4$};
+            \node[blue, left=4.6cm] (S5) at (big_rectangle1) {$S_5$};
+            \node[blue, left=4.6cm] (S6) at (big_rectangle2) {$S_6$};
+            \node[scale=2] (dots1) at (2, -0.8) {$\ldots$};
+            \node[scale=2] (dots2) at (2, -2.4) {$\ldots$};
+            \node[scale=2] (dots3) at (2, -4) {$\ldots$};
+            \node[scale=2] (dots4) at (7, -0.8) {$\ldots$};
+            \node[scale=2] (dots5) at (7, -2.4) {$\ldots$};
+            \node[scale=2] (dots6) at (7, -4) {$\ldots$};
+            %Lines
+            \draw[arrows = {Circle[length=3pt, width=3pt, open]}-] (x1) -- (0.5, 0.4);
+            \draw[arrows = {Circle[length=3pt, width=3pt, open]}-] (xn/2-1) -- (3.5, 0.4);
+            \draw[arrows = {Circle[length=3pt, width=3pt, open]}-] (xn/2+1) -- (5.5, 0.4);
+            \draw[arrows = {Circle[length=3pt, width=3pt, open]}-] (xn) -- (8.5, 0.4);
+            \draw[arrows = {-Circle[length=3pt, width=3pt]}] (4.5, -5.2) -- (f);
+            \draw (0.5, -0.4) -- (0.5, -1.15);
+            \draw (3.5, -0.4) -- (3.5, -1.15);
+            \draw (5.5, -0.4) -- (5.5, -1.15);
+            \draw (8.5, -0.4) -- (8.5, -1.15);
+            \draw (0.5, -2.05) -- (0.5, -2.8);
+            \draw (3.5, -2.05) -- (3.5, -2.8);
+            \draw (5.5, -2.05) -- (5.5, -2.8);
+            \draw (8.5, -2.05) -- (8.5, -2.8);
+            \draw (0.5, -3.6) -- (0.5, -4.4);
+            \draw (3.5, -3.6) -- (3.5, -4.4);
+            \draw (5.5, -3.6) -- (5.5, -4.4);
+            \draw (8.5, -3.6) -- (8.5, -4.4);
+        \end{tikzpicture}
+        \caption{Разбиение на подсхемы}
+    \end{figure}
+    В силу теоремы о сложности реализации конъюнкций, при $n\to \infty$ имеем
+    \[
+        L(S_1) = 2^{n-k}+o(2^{n-k})\leqslant 2\cdot 2^{n-k},\, L(S_2) \leqslant 2\cdot2^k.
+    \]
+    Подхема $S_3$ состоит только из дизъюнкторов (получаем $f_{(i,\widetilde{\tau})}^{(1)}$ через СДНФ). Для реализации всех функций для конкретного $i$ необходимо не больше $2^{n-k}$ дизъюнкций (т.\,к. всего $n-k$ переменных), получаем
+    \[
+        L(S_3) \leqslant p2^{n-k}.
+    \]
+    Подсхема $S_4$ также состоит из дизъюнкторов. Аналогично, для конкретного $i$, $\widetilde{\tau}$ не больше $s$ дизъюнкций. Количество способов выбрать $\widetilde{\tau}$ равно $2^s$, получаем
+    \[
+        L(S_4) \leqslant p2^s s.
+    \]
+    Подсхема $S_5$ состоит только из конъюнкторов. Их количество не больше числа пар $(i, \widetilde{\tau})$, а значит
+    \[
+        L(S_5) \leqslant p 2^s.
+    \]
+    Подсхема $S_6$ состоит только дизъюнкторов. Аналогично, 
+    \[
+        L(S_6) \leqslant p2^s.
+    \]
+    Окончательно получаем, 
+    \begin{multline*}
+        L(f)\leqslant L(S) = \sum_{i=1}^6 L(S_i) \leqslant
+        2^{n-k+1} + 2^{k+1} + p2^{n-k} + p2^ss+2p2^s \leqslant \\
+        \leqslant \left(\frac{2^k}{s} + 1\right)2^{n-k}+\left(\frac{2^k}{s} + 1\right)2^s(s+2) + 2^{n-k+1} + 2^{k+1} \leqslant \\
+        \leqslant \frac{2^n}{s} + 4\cdot 2^{s+k} + 3\cdot2^{n-k}+2\cdot2^k.
+    \end{multline*}
+    Полагая $k=\floor{3\log n}$, $s = \floor{n - 5\log n}$, и подставляя их в неравенство, имеем:
+    \[
+        L(f) \leqslant \frac{2^n}{n}\left(1+O\left(\frac{\log n}{n}\right)\right).
+    \]
+\end{proof}

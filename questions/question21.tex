@@ -1,0 +1,57 @@
+\section{Возведение в $n$-ю степень с использованием $\log_2 n + o(\log_2 n)$ операций умножения.}
+
+\begin{lemma}
+    Пусть $L(x^n) = s$, тогда $n \leqslant 2^s$.
+\end{lemma}
+
+\begin{proof}
+    Проведём индукцию по величине $s$.
+    
+    База: $s = 0$ --- верно, поскольку схема вычисляет переменную и неравенство $1\leqslant 2^0$ выполнено.
+
+    Шаг: рассмотрим последний элемент в схеме. Этот элемент вычисляет $x^n$ перемножая $x^a$ и $x^b$, вычисляемые в свою очередь, по предположению, схемами сложности не более $s-1$, тогда $n=a+b\leqslant 2^{s-1} + 2^{s-1} = 2^s$. 
+\end{proof}
+
+\begin{corollary}
+    $L(x^n) \geqslant \log_2 n$.
+\end{corollary}
+
+\begin{theorem}
+    $L(x^n) = \log_2 n + o(\log_2 n)$ при $n\to \infty$. 
+\end{theorem}
+
+\begin{proof}
+    Пусть $d$ --- натуральный параметр, значение которого выберем позже. Представим $n$ в системе счисления по основанию $2^d$:
+    \[
+        n = a_0(2^d)^0 + a_1 (2^d)^1 + \ldots + a_s (2^d)^s,
+    \]
+    где $0 \leqslant a_i \leqslant 2^d-1,\, i=0,\ldots, s,\, a_s \neq 0$. Очевидно $2^{sd} \leqslant n < 2^{(s+1)d}$.
+
+    На первом этапе, использовав $sd$ операций умножения, путем последовательного возведения в квадрат вычисляем степени:
+    \[
+        x^2, x^4, \ldots, x^{2^d}, \ldots, x^{2^{2d}}, \ldots, x^{2^{sd}}.
+    \]
+    Положим $u_0 = x^{2^{0d}} = x, u_1 = x^{2^{1d}}, \ldots, u_s = x^{2^{sd}}$ и $I_k=\{i\vert a_i = k\}$, $J_k=\{j \vert a_j \geqslant k\}$.
+
+    Тогда 
+    \begin{multline*}
+        x^n = u_0^{a_0} u_1^{a_1} \ldots u_s^{a_s} = \left(\prod\limits_{i\in I_{2^d-1}} u_i \right)^{2^d-1} \left(\prod\limits_{i\in I_{2^d-2}} u_i \right)^{2^d-2} \ldots \left(\prod\limits_{i\in I_1} u_i \right)^{1} = \\
+        = \left(\prod\limits_{i\in J_{2^d-1}} u_i \right) \left(\prod\limits_{i\in J_{2^d-2}} u_i \right) \ldots \left(\prod\limits_{i\in J_1} u_i \right).
+    \end{multline*}
+    
+    Т.\,к. $J_{2^{d-1}} \subseteq J_{2^{d-2}} \subseteq \ldots \subseteq J_1$ можно последовательно вычислить произведения, используя не более $s$ операций умножения (по одной операции для <<присоединения>> каждой новой переменной $u_i$). Для перемножения всех произведений потребуется ещё $2^d-2$ операций умножения.
+
+    Таким образом, окончательно имеем:
+    \[
+        L(x^n) \leqslant sd + s + 2^d - 2 \leqslant \log n + \frac{\log n}{d} + 2^d.
+    \]
+    Теперь, полагая $d = \floor{\log\log n - 2\log\log\log n}$, из предыдущего неравенства при $n \to \infty$ получаем
+    \begin{multline*}
+        L(x^n) \leqslant \log n + \dfrac{\log n}{\log \log n \left(1 - \frac{2\log \log\log n + 1}{\log \log n}\right)} + \dfrac{\log n}{(\log \log n)^2} \leqslant \\ 
+        \leqslant \log n + \dfrac{\log n}{\log \log n} (1 + o(1)) + \dfrac{\log n}{(\log \log n)^2} = \log n + \dfrac{\log n}{\log \log n} (1 + o(1)) \leqslant \log_2 n + o(\log_2 n).
+    \end{multline*}
+\end{proof}
+
+% \begin{corollary}
+%     При $n\to \infty$ справедливо соотношение $L(x^n) \sim \log_n$.
+% \end{corollary}

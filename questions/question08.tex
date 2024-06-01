@@ -1,0 +1,69 @@
+\section{Линейные функции. Замкнутость класса $L$. Лемма о нелинейной функции.}
+
+\begin{definition}
+    $L \vcentcolon = \{f\in P_2(n)\, |\, f = a_1x_1 \oplus \ldots \oplus a_n x_n \oplus a_0, n \in \Z^+, a_i \in E\}$ --- множество \textit{линейных} функций.
+\end{definition}
+
+\begin{theorem}
+    Класс $L$ замкнут.
+\end{theorem}
+
+\begin{proof}
+    Добавление/изъятие фиктивной переменной не выводит за пределы класса.\\ 
+    Доказательство проведём индукцией для формулы $\Phi$, которая реализует функцию $g$. База $\Phi = x_i$ --- верно. Предположим, что $\Phi_i$ лежит в $L$ как функция $f_i(x_1,\ldots,x_m) = a^i_1x_1 \oplus \ldots \oplus a^i_mx_m \oplus a^i_0$ (при необходимости добавим фиктивные переменные). Рассмотрим произвольную формулу над $L$, $\Phi = f(\Phi_1, \ldots, \Phi_n)$, которая реализует функцию
+    \[
+        g(x_1,\ldots, x_m) = f(f_1(x_1, \ldots, x_m), \ldots, f_n(x_1, \ldots, x_m)).
+    \]
+    
+    Тогда, поскольку $f = a_1x_1 \oplus \ldots \oplus a_nx_n + a_0$, $f_i$ $\in L$,
+    \begin{multline*}
+        g(x_1,\ldots, x_m) = f(f_1(x_1, \ldots, x_m), \ldots, f_n(x_1, \ldots, x_m)) = \\ = f(a^1_1x_1 \oplus \ldots \oplus a^1_mx_m \oplus a^1_0,\, \ldots,\, a^n_1x_1 \oplus \ldots \oplus a^n_mx_m \oplus a^n_0) = \\ = a_1(a^1_1x_1 \oplus \ldots \oplus a^1_mx_m \oplus a^1_0) \oplus \ldots \oplus a_n(a^n_1x_1 \oplus \ldots \oplus a^n_mx_m \oplus a^n_0) \oplus a_0 = \\ = \left(\sum_{i_1 = 1}^n a_{i_1} a_1^{i_1}\right) x_1 \oplus \ldots \oplus \left(\sum_{i_m = 1}^n a_{i_m} a_m^{i_m}\right) x_m \oplus \left(\sum_{i_0 = 1}^n a_{i_0} a_0^{i_0} \oplus a_0\right) \Rightarrow g \in L.
+    \end{multline*}
+    
+    А значит, любая суперпозиция функций из $L$ также является функцией из $L$.
+\end{proof}
+
+\begin{proposal}
+    $\abs{L \cap P_2(n)} = 2^{n + 1}$.
+\end{proposal}
+
+\begin{proof}
+    Любая $n$-местная линейная функция имеет вид $a_1x_1 \oplus \ldots \oplus a_nx_n \oplus a_0$. Таким образом, у нас $n + 1$ неизвестных коэффициентов из $E$, число способов их выбрать равно $2^{n + 1}$.
+\end{proof}
+
+\begin{proposal}
+    $L = [\{1, x \oplus y\}]$.
+\end{proposal}
+
+\begin{lemma}[Лемма о нелинейной функции]
+    Если $f_L \in P_2 \setminus L$, то из $f_L$, $0$, $1$ и $\overline{x}$ суперпозициями можно получить функцию $x_1 \cdot x_2$.
+\end{lemma}
+
+\begin{proof}
+    Рассмотрим многочлен Жегалкина функции $f$:
+        \[
+            f_L(x_1, \ldots, x_n) = \sum_{\{i_1, \ldots, i_s\} \subseteq \{1, \ldots, n\}}a_{i_1\ldots i_s}x_{i_1}\ldots x_{i_s}.
+        \]
+        Т.\,к. $f_L \notin L$, то без ограничения общности можно считать, что в мономе степени больше $1$ есть переменные $x_1$ и $x_2$. Перегруппируем члены полинома:
+        \[
+            f_L(x_1, \ldots, x_n) = x_1x_2f_1(x_3, \ldots, x_n) \oplus x_1f_2(x_3, \ldots, x_n) \oplus x_2f_3(x_3, \ldots, x_n) \oplus f_4(x_3, \ldots, x_n).
+        \]
+        Т.\,к. полином Жегалкина единственный, то $f_1 \ne 0$. Значит, найдутся такие $\alpha_3, \ldots, \alpha_n \in E$, что $f_1(\alpha_3, \ldots, \alpha_n) = 1$. Рассмотрим функцию $\varphi(x_1, x_2) \vcentcolon = f_L(x_1, x_2, \alpha_3, \ldots, \alpha_n)$. Имеем $\varphi(x_1, x_2) = x_1x_2 \oplus \alpha x_1 \oplus \beta x_2 \oplus \gamma$ для каких-то $\alpha, \beta, \gamma \in E$. Избавимся от линейных членов:
+        \[
+            \varphi(x_1 \oplus \beta, x_2 \oplus \alpha) = (x_1 \oplus \beta)(x_2 \oplus \alpha) \oplus \alpha(x_1 \oplus \beta) \oplus \beta(x_2 \oplus \alpha) + \gamma = x_1x_2 + (\alpha\beta \oplus \gamma).
+        \]
+
+        Отсюда $x_1x_2 = \varphi(x_1 \oplus \beta, x_2 \oplus \alpha) \oplus (\alpha\beta \oplus \gamma)$. Теперь вспомним, что $x \oplus 1 = \overline{x}$, поэтому если $\alpha\beta \oplus \gamma = 1$, то получаем $x_1x_2 = \overline{\varphi(\ldots)}$. Итак, мы получили $x_1 \cdot x_2$ как суперпозицию $f_L$, $0$, $1$ и $\overline{x}$.
+\end{proof}
+
+% \begin{definition}
+%     $L \vcentcolon = [\{1, x \oplus y\}]$ --- множество \textit{линейных} функций.
+% \end{definition}
+
+% \begin{proposal}
+%     $L$ замкнут.
+% \end{proposal}
+
+% \begin{proof}
+%     Следствие замкнутости замыкания.
+% \end{proof}

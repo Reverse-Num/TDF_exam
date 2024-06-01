@@ -1,0 +1,65 @@
+\section{Способы задания булевых функций. Булева функция как подмножество вершин $n$-мерного единичного куба}
+
+\noindent \textbf{Cпособы задания БФ}:
+\begin{enumerate}
+    \item \textit{Таблица значений}. Выписываем все наборы и значения, которое функция на них принимает.
+    Например,\quad
+    \begin{tabular}{cc|c|c|c}
+        $x$ & $y$ & $x \& y$ & $x \vee y$ & $x \to y$ \\
+        \hline
+        0 & 0 & 0 & 0 & 1\\
+        0 & 1 & 0 & 1 & 1\\
+        1 & 0 & 0 & 1 & 0\\
+        1 & 1 & 1 & 1 & 1\\
+    \end{tabular}
+    \item \textit{Булев куб}. Для функции от $n$ переменных рисуем $n$-мерный куб (каждая вершина соответствует набору из $B_n$) и выделяем те, на которых функция принимает значение 1.\\
+    Например, функцию $f(x, y, z) = x\oplus y \oplus z$ можно задать так:
+    \begin{asy}
+        import three;
+        import solids;
+    
+        size(150);
+        currentprojection = perspective(6,3,2);
+    
+        triple A = (0,0,0), B = (1,0,0), C = (1,1,0), D = (0,1,0),
+           E = (0,0,1), F = (1,0,1), G = (1,1,1), H = (0,1,1);
+    
+        revolution b = sphere(B, 0.02);
+        revolution d = sphere(D, 0.02);
+        revolution e = sphere(E, 0.02);
+        revolution g = sphere(G, 0.02);
+    
+        draw(A--B--C--D--cycle);
+        draw(E--F--G--H--cycle);
+        draw(A--E);
+        draw(B--F);
+        draw(C--G);
+        draw(D--H);
+    
+        draw(surface(b), blue,nolight);
+        draw(surface(d), blue,nolight);
+        draw(surface(e), blue,nolight);
+        draw(surface(g), blue,nolight);
+    
+        label("(000)", A, NW, fontsize(9));
+        label("(001)", B, SW, fontsize(9));
+        label("(011)", C, SE, fontsize(9));
+        label("(010)", D, NE, fontsize(9));
+        label("(100)", E, NW, fontsize(9));
+        label("(101)", F, W, fontsize(9));
+        label("(111)", G, SE, fontsize(9));
+        label("(110)", H, NE, fontsize(9));
+    \end{asy}
+    \item \textit{Описательный способ}. Задаём правила, которые описывают функцию.\\
+    Например, $m(x, y, z) = 
+    \begin{cases}
+        1, & x+y+z \geqslant 2 \\
+        0, & x+y+z < 2
+    \end{cases}$. \\
+    Функцией голосования называется булева функция, принимающая значение 1, когда в наборах значений переменных преобладают единицы, и принимающая значение 0, когда в наборах значений переменных преобладают нули. 
+    \item \textit{Формульный способ}. Задаём функцию формулой (см. билет 3). Например, $x\vee y = xy \oplus x \oplus y$.
+\end{enumerate}
+
+\begin{exercise}
+    Сколько вершин в серединном сечении $n$-мерного куба? Какова асимптотика роста этой функции?
+\end{exercise}

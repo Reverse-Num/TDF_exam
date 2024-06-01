@@ -1,0 +1,64 @@
+\section{Монотонные функции. Замкнутость класса $M$. Лемма о немонотонной функции.}
+
+\begin{definition}
+    Пусть $\widetilde{\alpha} = (\alpha_1, \ldots, \alpha_n), \widetilde{\beta} = (\beta_1, \ldots, \beta_n) \in B_n$. Скажем, что набор $\widetilde{\alpha}$ \textit{не больше} набора $\widetilde{\beta}$ ($\widetilde{\alpha} \leqslant \widetilde{\beta}$), если $\alpha_i \leqslant \beta_i$ $\forall i = 1, \ldots, n$.
+\end{definition}
+
+\begin{remark}
+    Даное отношение является отношенем частичного порядка на $B_n$. Легко привести пару несравнимых наборов --- $(0, 1)$ и $(1, 0)$.
+\end{remark}
+
+\begin{definition}
+    $M \vcentcolon = \{f \in P_2 : \widetilde{\alpha} \leqslant \widetilde{\beta} \Rightarrow f(\widetilde{\alpha}) \leqslant f(\widetilde{\beta})\}$ --- множество \textit{монотонных функций}.
+\end{definition}
+
+\begin{theorem}
+    Класс $M$ замкнут.
+\end{theorem}
+
+\begin{proof}
+    Добавление/изъятие фиктивной переменной не выводит за пределы класса.\\ 
+    Доказательство проведём индукцией для формулы $\Phi$, которая реализует функцию $g$. База $\Phi = x_i$ --- верно. Предположим, что $\Phi_i$ лежит в $M$ как функция $f_i(x_1,\ldots,x_m)$ (при необходимости добавим фиктивные переменные). Рассмотрим произвольную формулу над $M$, $\Phi = f(\Phi_1, \ldots, \Phi_n)$, которая реализует функцию
+    \[
+        g(x_1,\ldots, x_m) = f(f_1(x_1, \ldots, x_m), \ldots, f_n(x_1, \ldots, x_m)).
+    \]
+    Тогда, поскольку $f, f_i \in M$, для двух наборов $\widetilde{\alpha}$, $\widetilde{\beta}$: $\widetilde{\alpha} \leqslant \widetilde{\beta}$, $f_i(\widetilde{\alpha}) \leqslant f_i(\widetilde{\beta})$ и справедливо
+    \[
+        g(\widetilde{\alpha}) = f(f_1(\widetilde{\alpha}), \ldots, f_n(\widetilde{\alpha})) \leqslant f(f_1(\widetilde{\beta}), \ldots, f_n(\widetilde{\beta})) = g(\widetilde{\beta}) \Rightarrow g \in M.
+    \]
+    
+    А значит, любая суперпозиция функций из $M$ также является функцией из $M$.
+\end{proof}
+
+\begin{lemma}[О немонотонной функции]
+    Если $f_M \in P_2 \setminus M$, то из $f_M$, $0$ и $1$ суперпозициями можно получить $\overline{x}$.
+\end{lemma}
+
+\begin{proof}
+    Из $f_M \notin M$, найдутся наборы $\widetilde{\alpha}, \widetilde{\beta} \in B_n$ такие, что $\widetilde{\alpha} \leqslant \widetilde{\beta}$ и $f(\widetilde{\alpha}) = 1$, а $f(\widetilde{\beta}) = 0$. Последовательно будем менять набор $\widetilde{\alpha}$ так, чтобы $\alpha_i = \beta_i$ (покоординатно). В силу дискретной непрерывности найдётся такое $j$, что $f(\ldots, \alpha_j, \ldots) = 1$, $f(\ldots, \beta_j, \ldots) = 0$, $\alpha_j = 0 < 1 = \beta_j$, а значит, $\varphi(x) = f(\ldots, x, \ldots) = \overline{x}$.
+\end{proof}
+
+\begin{proposal}
+    $2^{C_n^{\floor{n/2}}} \leqslant \abs{M \cap P_2(n)} \leqslant 2^{C_n^{\floor{n/2}}} + 2$.
+\end{proposal}
+
+\begin{proof}
+    Рассмотрим множество всех наборов из $B_n$ с числом единиц $\floor{\frac{n}{2}}$. Таких наборов $C_n^{\floor{\frac{n}{2}}}$. Зададим функцию следующим образом: на всех таких наборах выберем значения произвольным образом, на наборах с меньшим числом единиц --- ноль, большим --- единицу. Все такие функции монотонны, а количество способов определить функцию на $C_n^{\floor{\frac{n}{2}}}$ наборах ровно $2^{C_n^{\floor{n/2}}}$. Оценка сверху --- куда более сложная задача, которая здесь не рассматривается.
+\end{proof}
+
+\begin{proposal}
+    Если $f(\widetilde{x}) \in M$, то $f(x_1, \ldots, x_n) = f(x_1, \ldots, x_{n-1}, 0) \vee f(x_1, \ldots, x_{n-1}, 1) x_n$.
+\end{proposal}
+
+\begin{proof}
+    Очевидно верно при $x_n = 0$ и $x_n = 1$.
+\end{proof}
+
+\begin{proposal}
+    $[\{0, 1, xy, x \vee y\}] = M$.
+\end{proposal}
+
+\begin{proof}
+    $M \subseteq [\{0, 1, xy, x \vee y\}]$, т.\,к. любую функцию из $M$ можно выразить через эти функции (прямое следствие предложения 2).
+    $[\{0, 1, xy, x \vee y\}] \subseteq M$, в силу монотонности замыкания ($\{0, 1, xy, x \vee y\}\subseteq M$, а значит, $[\{0, 1, xy, x \vee y\}] \subseteq [M] = M$).
+\end{proof}

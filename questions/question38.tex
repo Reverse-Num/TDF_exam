@@ -1,0 +1,123 @@
+\section{Автомат. Инициальный автомат. Задание автомата с помощью таблицы, канонических уравнений и диаграммы Мура. Автомат <<счётчик чётности>>. Автомат задержки. Автоматные функции. Тождественность ограниченно-детерминированных и автоматных функций}
+
+\textit{Конечный автомат} --- это устройство, функционируюшее в дискретные моменты времени $t = 0, 1, \ldots,$ имеющее вход, выход и конечное число состояний $q_0, q_1, \ldots, q_{\lambda}$. В момент времени $t$ автомат находится в состоянии $q(t)\in Q = \{q_0, \ldots, q_{\lambda}\}$, на его вход подаётся $x(t)$ из конечного множества $A$, а на выходе выдаётся $y(t)$ из конечного множества $B$. При этом входной символ $x(t)$ и состояние автомата $q(t)$ однозначно определяет выходной символ $y(t)$ и состояние $q(t+1)$ автомата в следующий момент времени.
+
+\begin{definition}
+    \textit{Конечным автоматом} называется объект $V=(A, B, Q, F, G)$, где $A$ --- входной алфавит, $B$ --- выходной алфавит, $Q$ --- алфавит состояний, $F:A\times Q \to B$ --- функция выходов, $G:A\times Q \to Q$ --- функция переходов. Автомат называется \textit{инициальным}, если задано его начальное состояние $q_0$ в момент времени $t=0$.
+\end{definition}
+
+Легко видеть, что каждый инициальный автомат $V_{q_0}$ вычисляет некоторую функцию, определённую на множестве $A^{\infty}$ и принимающую значения из множества $B^{\infty}$. Эта функция называется \textit{автоматной} и обозначается $f_{V_{q_0}}$.
+
+\begin{definition}
+    Функция $f:A^{\infty} \to B^{\infty}$ называется \textit{автоматной}, если существует конечный инициальный автомат, вычисляющий эту функцию.
+\end{definition}
+
+\begin{example}
+    Автомат <<счётчик чётности>>.\vspace{-4mm}
+    \begin{figure}[h]
+        \centering
+        \begin{minipage}[c]{0.44\textwidth}
+            \begin{center}
+                \vspace{4mm}
+                \begin{equation*}
+                    y(t) = 
+                    \begin{cases}
+                        x(1) \oplus \ldots \oplus x(t) &\text{при } t\geqslant 1,\\
+                        0 &\text{при } t = 0.
+                    \end{cases}
+                    \vspace{4mm}
+                \end{equation*}
+                \begin{tabular}{|c|c||c|c|}
+                    \hline
+                    $x$ & $q$ & $F$ & $G$ \\
+                    \hline
+                    0 & 0 & 0 & 0\\
+                    0 & 1 & 1 & 1\\
+                    1 & 0 & 1 & 1\\
+                    1 & 1 & 0 & 0\\
+                    \hline
+                \end{tabular}
+            \end{center}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[c]{0.54\textwidth}
+            \begin{center}
+                \begin{tikzpicture}
+                    %Nodes
+                    \node[place] (p1) at (-2, 0) {$0$};
+                    \node[place] (p2) at (2, 0) {$1$};
+                    \node[scale=1.5, red] at (-2, -0.7) {$*$};
+                    %Lines
+                    \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p1) edge[out=30, in=150] node[above=1mm] {$(1, 1)$} (p2);
+                    \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p2) edge[out=210, in=-30] node[below=1mm] {$(1, 0)$} (p1);
+                    \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p1) edge[out=150, in=210, distance=1.6cm] node[left=1mm] {$(0, 0)$} (p1);
+                    \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p2) edge[out=30, in=-30, distance=1.6cm] node[right=1mm] {$(0, 1)$} (p2);
+                \end{tikzpicture}
+                \[
+                    \begin{cases}
+                        y(t) = x(t)\oplus q(t),\\
+                        q(t+1) = x(t) \oplus q(t),\\
+                        q(0) = 0.
+                    \end{cases}
+                \]
+            \end{center}
+        \end{minipage}
+    \end{figure}    
+\end{example}
+
+\begin{example}
+    Автомат задержки.\vspace{-4mm}
+    \begin{figure}[h]
+        \centering
+        \begin{minipage}[c]{0.44\textwidth}
+            \begin{center}
+                \vspace{4mm}
+                \begin{equation*}
+                    y(t) = 
+                    \begin{cases}
+                        x(t-1) &\text{при } t\geqslant 1,\\
+                        0 &\text{при } t = 0.
+                    \end{cases}
+                    \vspace{4mm}
+                \end{equation*}
+                \begin{tabular}{|c|c||c|c|}
+                    \hline
+                    $x$ & $q$ & $F$ & $G$ \\
+                    \hline
+                    0 & 0 & 0 & 0\\
+                    0 & 1 & 1 & 0\\
+                    1 & 0 & 0 & 1\\
+                    1 & 1 & 1 & 1\\
+                    \hline
+                \end{tabular}
+            \end{center}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[c]{0.54\textwidth}
+            \begin{center}
+                \begin{tikzpicture}
+                    %Nodes
+                    \node[place] (p1) at (-2, 0) {$0$};
+                    \node[place] (p2) at (2, 0) {$1$};
+                    \node[scale=1.5, red] at (-2, -0.7) {$*$};
+                    %Lines
+                    \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p1) edge[out=30, in=150] node[above=1mm] {$(1, 0)$} (p2);
+                    \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p2) edge[out=210, in=-30] node[below=1mm] {$(0, 1)$} (p1);
+                    \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p1) edge[out=150, in=210, distance=1.6cm] node[left=1mm] {$(0, 0)$} (p1);
+                    \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p2) edge[out=30, in=-30, distance=1.6cm] node[right=1mm] {$(1, 1)$} (p2);
+                \end{tikzpicture}
+                \[
+                    \begin{cases}
+                        y(t) = q(t),\\
+                        q(t+1) = x(t),\\
+                        q(0) = 0.
+                    \end{cases}
+                \]
+            \end{center}
+        \end{minipage}
+    \end{figure}    
+\end{example}
+
+Легко видеть, что для каждой о.-д. функции веса $r$ существует конечный инициальный автомат с $r$ состояниями, вычисляющий эту функцию, и, наоборот, каждый конечный инициальный автомат c $\lambda$ состояниями вычисляет некоторую о.-д. функцию веса $r$, где $r\leqslant \lambda$. Тем самым, функция является автоматной тогда и только тогда, когда она ограниченно-детерминированная.
+
+Отметим, что конечные автоматы (как и о.-д. функции) можно задавать при помощи таблиц, диаграмм перехода, информационных деревьев и их конечных фрагментах.

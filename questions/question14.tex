@@ -1,0 +1,29 @@
+\section{Две универсальные формы представления произвольной функции $k$-значной логики. Полнота систем функций из этих универсальных форм.}
+
+Используя операции $I_\sigma$, $\vee$, $\&$ и константы, можно построить аналог СДНФ в $k$-значной логике. Именно, для произвольной функции $f \in P_k(n)$ имеет место следующее тождество:
+\begin{theorem}
+    \[
+        f(x_1, \ldots, x_n) = \bigvee_{(\sigma_1, \ldots, \sigma_n) \in E_k^n}I_{\sigma_1}(x_1) \& \ldots \& I_{\sigma_n}(x_n) \& f(\sigma_1, \ldots, \sigma_n).
+    \]
+\end{theorem}
+\begin{proof}
+    В самом деле, при $\widetilde{x} \neq \widetilde{\sigma}$, конъюнкция равна 0, и она не влияет на сумму. При $\widetilde{x} = \widetilde{\sigma}$ конъюнкция равна $f(\sigma_1, \ldots, \sigma_n)$.
+\end{proof}
+
+\begin{theorem}
+    \[
+        f(x_1, \ldots, x_n) = \sum_{(\sigma_1, \ldots, \sigma_n) \in E^n_k} j_{\sigma_1}(x_1)\cdot \ldots \cdot j_{\sigma_n}(x_n) \cdot f(\sigma_1, \ldots, \sigma_n).
+    \]
+\end{theorem}
+
+\begin{proof}
+    Аналогично.
+\end{proof}
+
+Отсюда вытекают следующие теоремы:
+\begin{theorem}
+    $[\{0, 1, \ldots, k-1, I_0(x), \ldots, I_{k-1}(x), x\& y, x\vee y\}] = P_k$.
+\end{theorem}
+\begin{theorem}
+    $[\{0, 1, \ldots, k-1, j_0(x), \ldots, j_{k-1}(x), x\cdot y \pmod k, x+y \pmod k\}] = P_k$.
+\end{theorem}

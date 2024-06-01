@@ -1,0 +1,36 @@
+\section{Представление функций $k$-значной логики полиномами. Малая теорема Ферма. Условие представления всех функций $k$-значной логики полиномами.}
+
+\begin{theorem}[Малая теорема Ферма]
+    Если $k$ --- простое и $a \not\equiv 0 \pmod k$, то $a^{k-1} \equiv 1 \pmod k$.
+\end{theorem}
+
+\begin{proof}
+    Докажем, что все остатки от деления на $k$ чисел $a, \ldots, (k-1)a$ различны.\\
+    В самом деле, если бы нашлись 2 числа $ia$, $ja$ ($1\leqslant i < j \leqslant k-1$), имеющие одинаковые остатки, то $ja-ia = (j-i)a$ делилось бы на $k$. Т.\,к $1\leqslant(j-i) \leqslant k-2$ не делится на $k$, то $a$ делится на $k$, противоречие. А значит,
+    \[
+        a \cdot 2a \cdot \ldots \cdot (k-1)a \equiv 1\cdot 2 \cdot \ldots \cdot (k-1) \pmod k \Leftrightarrow (k-1)!\,a^{k-1} \equiv (k-1)! \pmod k.
+    \]
+    Т.\,к. $(k-1)! \not \equiv 0 \pmod k$, то $a^{k-1} \equiv 1 \pmod k$.
+\end{proof}
+
+\begin{theorem}
+    Система $F = \{0, 1, \ldots, k - 1, xy \pmod k, x + y \pmod k\}$ полна в $P_k$ $\Leftrightarrow$ $k$ --- простое. 
+\end{theorem}
+
+\begin{proof}
+    Отдельно рассмотрим случаи простого и составного $k$.
+    \begin{enumerate}
+        \item Пусть $k$ --- простое число. Используем второе представление произвольной функции $f$\\
+        $k$-значной логики
+        \[
+            f(x_1, \ldots, x_n) = \sum_{(\sigma_1, \ldots, \sigma_n) \in E^n_k} j_{\sigma_1}(x_1)\cdot \ldots \cdot j_{\sigma_n}(x_n) \cdot f(\sigma_1, \ldots, \sigma_n).
+        \]
+        В силу малой теоремы Ферма $j_0(x) = 1 - x^{k-1}$. Кроме того, $j_\sigma(x) = j_0 (x-\sigma)$.
+        \item Пусть $k = k_1k_2$, где $1 < k_1, k_2 < k$. Покажем, что функцию $j_0(x)$ нельзя представить в виде полинома. Предположим, что это не так, тогда $j_0(x) = c_0 + c_1x + \ldots + c_{k-1} x^{k-1}$.\\
+        Заметим, что $j_0(0) = 1$, а значит, $c_0 = 1$. При $x=k_1$ имеем:
+        \[
+            0 = j_0(k_1) = 1 + c_1k_1 + \ldots + c_{k-1}k_1^{k-1}. 
+        \]
+        Умножая обе части на $k_2$, получаем $0 \equiv k_2 \pmod k$, что противоречит предположению.
+    \end{enumerate}
+\end{proof}

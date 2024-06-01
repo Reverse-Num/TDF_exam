@@ -1,0 +1,147 @@
+\section{Отличимость состояний автомата на входных словах заданной длины. 1-я и 2-я теоремы Мура. Примеры автоматов, для которых утверждения теорем Мура не могут быть усилены.}
+
+\begin{theorem}[1-я теорема Мура]
+    Пусть $V=(A, B, Q, F, G)$ --- конечный автомат с $k$ состояниями. Тогда любые два состояния автомата $V$ являются неотличимыми тогда и только тогда, когда они неотличимы на множестве $A^{k−1}$.
+\end{theorem}
+
+\begin{proof}
+    Если два состояния автомата $V$ являются неотличимыми, то они не отличимы на множестве $A^{k-1}$. Теперь докажем, что если они неотличимы на множестве $A^{k-1}$, то они неотличимы.
+
+    Как было показано в билете 42, для любого натурального $i$ отношение неотличимости на множестве $A^i$ является отношением эквивалентности. Поэтому множество $Q$ разбивается на классы эквивалентности относительно данного отношения. Обозначим через $R_i = \{\hat{q}^i_1, \hat{q}^i_2, \ldots, \hat{q}^i_{k_i}\}$ множество всех таких классов.
+
+    Если два состояния содержатся в одном классе из $R_{i+1}$, то они содержатся в одном классе из $R_i$. Поэтому каждый класс из $R_i$ является объединением некоторых классов из $R_{i+1}$. Таким образом, $|R_i| \leqslant |R_{i+1}|$, причем $|R_i| = |R_{i+1}|$ тогда и только тогда, когда $R_i = R_{i+1}$.
+
+    Так как $|R_i| \leqslant |R_{i+1}|$ и $|R_i| \leqslant k$ при всех $i$, то найдется минимальный номер $s$, такой, что $|R_s| = |R_{s+1}|$, т.\,е. $R_s = R_{s+1}$. Покажем, что тогда $R_s = R_{s+1} = R_{s+2} = \ldots$
+
+    Пусть это не так, т.\,е. для некоторого $t > s$ верно $R_t \neq R_{t+1}$.
+    Тогда существуют два состояния $q',q'' \in Q$ такие, что $q'\stackrel{A^t}{\sim} q''$, но $q'$ и $q''$ отличимы на $A^{t+1}$, т.\,е. существует входное слово длины $t+1$, что $\overline{F}(w, q') \neq \overline{F}(w, q'')$.
+    
+    Пусть $u$ --- префикс длины $t-s$ в слове $w$. Положим $q_1'= \overline{G}(u, q')$, $q_1''=\overline{G}(u, q'')$. Покажем, что $q'\stackrel{A^s}{\sim} q''$. Рассмотрим произвольное входное слово $v \in A^s$ и составим слово $uv \in A^t$.
+
+    Так как $q'\stackrel{A^t}{\sim} q''$, то $\overline{F}(uv, q') = \overline{F}(uv, q'')$, при этом 
+    \begin{align*}
+        \overline{F}(uv, q') &= \overline{F}(u, q')\overline{F}(v, q'_1),\\
+        \overline{F}(uv, q'') &= \overline{F}(u, q'')\overline{F}(v, q''_1).
+    \end{align*}
+    т.\,е. $\overline{F}(u, q') = \overline{F}(u, q'')$ и $\overline{F}(v, q''_1) = \overline{F}(v, q''_1)$. Первое равенство используем позже, а из второго следует, что $q'_1\stackrel{A^s}{\sim} q''_1$.
+
+    Возвращаясь к слову $w \in A^{t+1}$, имеющему префикс $u$ и удовлетворяющему условию $\overline{F}(w, q') \neq \overline{F}(w, q'')$, обозначим в слове $w$ через $v'$ суффикс длины $s+1$, получая представление $w=uv'$.
+
+    Тогда
+    \begin{align*}
+        \overline{F}(w, q') = \overline{F}(uv', q') &= \overline{F}(u, q') \overline{F}(v', q'_1),\\
+        \overline{F}(w, q'') = \overline{F}(uv', q'') &= \overline{F}(u, q'') \overline{F}(v', q''_1).
+    \end{align*}
+    Слова $\overline{F}(w, q')$ и $\overline{F}(w, q'')$ отличаются, а префиксы $\overline{F}(u, q')$ и $\overline{F}(u, q'')$ --- нет. Поэтому 
+    \[
+        \overline{F}(v', q'_1) \neq \overline{F}(v', q''_1).
+    \]
+    Получаем, что $q'_1$ и $q''_1$ содержатся в одном классе из $R_s$, но в разных классах из $R_{s+1}$, что противоречит равенству $R_s = R_{s+1}$. Таким образом, $R_s = R_{s+1} = R_{s+2} = \ldots$
+
+    Следовательно, если два состояния из $Q$ неотличимы на множестве $A^s$, то они неотличимы на любом входном слове, т.\,е. являются неотличимыми.
+
+    С другой стороны, 
+    \[
+        |R_1| < |R_2| < \ldots < |R_s|.
+    \]
+
+    Так как $|R_{i+1}| \geqslant |R_{i}| + 1$, и $|R_s| \leqslant k$, получаем, что $s\leqslant k-1$.
+
+    Таким образом, $q' \stackrel{A^{k-1}}{\sim} q'' \Rightarrow q' \stackrel{A^{s}}{\sim} q''\Rightarrow q' \sim q''$. 
+\end{proof}
+
+\begin{example}
+    1-я теорема Мура не может быть усилена.
+    \begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        %Nodes
+        \node[place] (p1) at (-6, 0) {$q_1$};
+        \node[place] (p2) at (-4, 0) {$q_2$};
+        \node[place] (p3) at (-2, 0) {$q_3$};
+        \node[scale=1.5] (p4) at (0, 0) {$\ldots$};
+        \node[place] (p5) at (2, 0) {$q_{k-2}$};
+        \node[place] (p6) at (4, 0) {$q_{k-1}$};
+        \node[place] (p7) at (6, 0) {$q_k$};
+        \node[scale=1.5, red] at (-6, -0.7) {$*$};
+        %Lines
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p1) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p2);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p2) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p3);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p3) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p4);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p4) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p5);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p5) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p6);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p6) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p7);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p7) edge[out=-120, in=-60, distance=1.6cm] node[above=1mm, scale=0.9] {$(0, 1)$} node[below=1mm, scale=0.9] {$(1, 1)$} (p1);
+    \end{tikzpicture}
+    \caption{Диаграмма Мура контрпримера}
+    \end{figure}
+    
+    Нетрудно заметить, что $q_1 \stackrel{A^{k-2}}{\sim} q_2$, однако $q_1 \not \sim q_2$.
+\end{example}
+
+\begin{theorem}[2-я теорема Мура]
+    Пусть $V'=(A, B, Q', F', G'), V'' = (A, B, Q'', F'', G'')$ --- конечные автоматы, $|Q'| = k'$, $|Q''| = k'', q'\in Q', q'' \in Q''$. Тогда состояния $q'$ и $q''$ являются неотличимыми тогда и только тогда, когда они неотличимы на множестве $A^{k'+k''-1}$.
+\end{theorem}
+
+\begin{proof}
+    Применим первую теорему Мура для автомата $V'''=(A, B, Q''', F''', G''')$, у которого $Q'''=Q' \cup Q''$, 
+    \[
+        G''' =
+        \begin{cases}
+            G'(q, a), &\text{если } q\in Q',\\
+            G''(q, a), &\text{если } q\in Q'',
+        \end{cases}
+        \qquad
+        F''' =
+        \begin{cases}
+            F'(q, a), &\text{если } q\in F',\\
+            F''(q, a), &\text{если } q\in F''.
+        \end{cases}
+    \]
+\end{proof}
+    \begin{example}
+        2-я теорема Мура не может быть усилена. В качестве контрпримера на рисунке приведены два автомата, заданные диаграммами Мура.
+        \begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        %Nodes
+        \node[place] (p1) at (-6, 0) {$q'_1$};
+        \node[place] (p2) at (-4, 0) {$q'_2$};
+        \node[place] (p3) at (-2, 0) {$q'_3$};
+        \node[scale=1.5] (p4) at (0, 0) {$\ldots$};
+        \node[place] (p5) at (2, 0) {$q'_{k-2}$};
+        \node[place] (p6) at (4, 0) {$q'_{k-1}$};
+        \node[place] (p7) at (6, 0) {$q'_k$};
+        \node[scale=1.5, red] at (-6, -0.7) {$*$};
+        %Lines
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p1) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p2);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p2) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p3);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p3) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p4);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p4) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p5);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p5) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p6);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p6) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p7);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p7) edge[out=-120, in=-60, distance=1.6cm] node[above=1mm, scale=0.9] {$(0, 1)$} node[below=1mm, scale=0.9] {$(1, 1)$} (p1);
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        %Nodes
+        \node[place] (p1) at (-6, 0) {$q''_1$};
+        \node[place] (p2) at (-4, 0) {$q''_2$};
+        \node[place] (p3) at (-2, 0) {$q''_3$};
+        \node[scale=1.5] (p4) at (0, 0) {$\ldots$};
+        \node[place] (p5) at (2, 0) {$q''_{k-2}$};
+        \node[place] (p6) at (4, 0) {$q''_{k-1}$};
+        \node[place] (p7) at (6, 0) {$q''_k$};
+        \node[scale=1.5, red] at (-6, -0.7) {$*$};
+        %Lines
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p1) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p2);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p2) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p3);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p3) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p4);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p4) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p5);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p5) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p6);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p6) edge[out=30, in=150] node[above=1mm, scale=0.9] {$(0, 0)$} node[below=1mm, scale=0.9] {$(1, 0)$} (p7);
+        \draw[arrows = {-Latex[width=3pt, length=3pt]}, shorten >=3pt, shorten <=3pt]  (p7) edge[out=30, in=-30, distance=1.6cm] node[above=1mm, scale=0.9, pos=0.3] {$(0, 0)$} node[below=1mm, scale=0.9, pos=0.7] {$(1, 0)$} (p7);
+    \end{tikzpicture}
+    \caption{Диаграмма Мура контрпримера}
+    \end{figure}
+    \end{example}
+    С одной стороны, при $k' \geqslant k'' \geqslant 2$ выполняется соотношение $q''_1′ \stackrel{A^{k'+k''-2}}{\sim} q'_{k'−k''+2}$, так как на любых входных словах длины $k' + k''- 2$ в этих состояниях на выходе выдается слово $\underbrace{00\ldots0}_{k''-2}1\underbrace{00\ldots0}_{k'-1}$, а с другой стороны, справедливо соотношение $q''_1\not \sim q'_{k'-k''+2}$.

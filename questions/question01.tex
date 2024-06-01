@@ -1,0 +1,96 @@
+\section{Функции алгебры логики (булевы функции). Число булевых функций от $n$ фиксированных переменных. Существенные и несущественные (фиктивные) переменные. Операции удаления и добавления несущественной переменной. Равенство булевых функций. Элементарные булевы функции и их свойства.}
+
+Положим $E=\{0, 1\}, B_n = E^n$ --- \textit{$n$-мерный булев куб}.
+
+\begin{proposal}
+    $\abs{B_n} = 2^n$.
+\end{proposal}
+
+\begin{proof}
+    Любой элемент $B_n$ имеет вид $(a_1, \ldots, a_n)$, где $a_i = 0$ или $a_i = 1$ $\forall i = 1, \ldots, n$. Тогда для каждой из $n$ координат имеет ровно $2$ значения, значит, всего значений $2^n$.
+\end{proof}
+
+\begin{definition}
+    \textit{Булева функция} $f(x_1, \ldots, x_n)$ от $n$ переменных $f: E^n \to E$.\\
+    $P_2$ --- множество булевых функций, $P_2(n)$ --- от $n$ переменных.
+\end{definition}
+
+\begin{theorem}
+    Число булевых функций от $n$ переменных равно $2^{2^n}$.
+\end{theorem}
+
+\begin{proof}
+    В самом деле, наша функция определяется значениями, которая она принимает на $2^n$ наборах. Для каждого набора 2 значения, значит, всего значений $2^{2^n}$.
+\end{proof}
+
+\begin{definition}
+    Функцию алгебры логики $f(\widetilde{x}^n)$ назовём \textit{существенно зависящей от переменной $x_i$} ($i = 1, \ldots, n$), если существуют значения $\alpha_1, \ldots, \alpha_{i - 1}, \alpha_{i + 1}, \ldots, \alpha_n$ из $E$ такие, что \[f(\alpha_1, \ldots, \alpha_{i - 1}, 0, \alpha_{i + 1}, \ldots, \alpha_n) \ne f(\alpha_1, \ldots, \alpha_{i - 1}, 1, \alpha_{i + 1}, \ldots, \alpha_n).\]
+    В этом случае $x_i$ называется \textit{существенной переменной функции $f$}. Переменная, не являющаяся существенной. называется \textit{фиктивной}.
+\end{definition}
+
+\begin{definition}
+    Пусть $x_i$ --- фиктивная переменная функции $f(\widetilde{x}^n)$. Тогда функция \[g(x_1, \ldots, x_{i - 1}, x_{i + 1}, \ldots, x_n) \vcentcolon = f(x_1, \ldots, x_{i - 1}, 0, x_{i + 1}, \ldots, x_n)\]
+    называется \textit{полученной из $f$ удалением фиктивной переменной $x_i$}. Обратно, говорят, что \textit{$f$ получена из $g$ добавлением $i$-ой фиктивной переменной}.
+\end{definition}
+
+\begin{definition}
+    Две булевы функции $f$ и $g$ называются \textit{одинаковыми}, если у них одинаковое множество переменных и на любом наборе этих переменных функции принимают одинаковые значения.
+\end{definition}
+
+\begin{definition}
+    Две булевы функции $f$ и $g$ называются \textit{равными}, если одну из другой можно получить за конечное число применений операций добавления и удаления фиктивных переменных.
+\end{definition}
+
+\begin{definition}
+    \textit{Элементарными} мы будем называть следующие функции:
+    \begin{enumerate}[nolistsep]
+        \item \textit{Константы} $0$ и $1$ (нуль-местные функции).
+        \item \textit{Тождественная функция} $x$ и \textit{отрицание} $\overline{x} \vcentcolon = 1 - x$ (одноместные функции).
+        \item \textit{Конъюнкция} $x_1 \& x_2 \vcentcolon = \min\{x_1, x_2\}$ (иногда обозначается как $x_1 \cdot x_2$).
+        \item \textit{Дизъюнкция} $x_1 \vee x_2 \vcentcolon = \max\{x_1, x_2\}$.
+        \item \textit{Имплкация} $x_1 \to x_2$, $x_1 \to x_2 = 0 \overset{\mathrm{def}}{\Longleftrightarrow} x_1 = 1, x_2 = 0$.
+        \item \textit{Сумма по $\bmod$ $2$} $x_1 \oplus x_2$, $x_1 \oplus x_2 = 0 \overset{\mathrm{def}}{\Longleftrightarrow} x_1 = x_2$.
+        \item \textit{Эквивалентность} $x_1 \sim x_2$, $x_1 \sim x_2 = 1 \overset{\mathrm{def}}{\Longleftrightarrow} x_1 = x_2$.
+        \item \textit{Штрих Шеффера} $x_1 \mid x_2 \vcentcolon = \overline{x_1 \cdot x_2}$.
+        \item \textit{Стрелка Пирса} $x_1 \downarrow x_2 \vcentcolon = \overline{x_1 \vee x_2}$.
+    \end{enumerate}
+\end{definition}
+\newpage
+\noindent Отметим некоторые \textbf{свойства} операций:
+\begin{multicols}{3}
+    \noindent1. Коммутативность
+    \begin{itemize}[nolistsep]
+        \item $x\&y = y\&x$;
+        \item $x \vee y = y \vee x$;
+        \item $x \oplus y = y \oplus x$;
+    \end{itemize}
+    2. Ассоциативность
+    \begin{itemize}[nolistsep]
+        \item $(xy)z = x(yz)$;
+        \item $(x \vee y) \vee z = x \vee (y \vee z)$;
+        \item $(x \oplus y) \oplus z = x \oplus (y \oplus z)$;
+    \end{itemize}
+    3. Дистрибутивность
+    \begin{itemize}[nolistsep]
+        \item $x(y \vee z) = xy \vee xz$;
+        \item $x \vee (yz) = (x \vee y)(x \vee z)$;
+        \item $x(y \oplus z) = xy \oplus xz$;
+    \end{itemize}
+    4. Идентичность
+    \begin{itemize}[nolistsep]
+        \item $xx = x$;
+        \item $x \vee x = x$;
+        \item $x \oplus x = 0$;
+    \end{itemize}
+    5. Правила Де Моргана
+    \begin{itemize}[nolistsep]
+        \item $\overline{\overline{x}}=x$;
+        \item $\overline{x \& y} = \overline{x}\vee \overline{y}$;
+        \item $\overline{x \vee y} = \overline{x} \& \overline{y}$;
+    \end{itemize}
+    6. Законы поглощения
+    \begin{itemize}[nolistsep]
+        \item $x\vee xy = x$;
+        \item $x \& (x\vee y) = x$;
+    \end{itemize}
+\end{multicols}

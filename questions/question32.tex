@@ -1,0 +1,155 @@
+\section{Мощностной метод получения нижних оценок функции Шеннона. Эффект Шеннона. Усиленная мощностная нижняя оценка функции Шеннона в базисе \{$x\vee y$, $x \& y$, $\overline{x}$\}.}
+
+\begin{definition}
+    Схему будем называть \textit{приведенной} (\textit{правильной}), если в ней нет двух разных элементов, реализующих одну и ту же функцию.
+\end{definition}
+
+\begin{lemma}
+    Любая минимальная схема является приведённой.
+\end{lemma}
+
+\begin{proof}
+    Очевидно (проводим рассуждения, как в билете 30).
+\end{proof}
+
+Обозначим через $N_=(k, n)$ число приведенных схем в базисе $B_0 = \{x \vee y, x\&y, \overline{x}\}$ со входами, которым приписаны переменные $x_1, \ldots, x_n$, и одним выходом, имеющих сложность в точности $k$, а через $N_{\leqslant}(k, n)$ --- число приведенных схем в базисе $B_0$ со входами, которым приписаны переменные $x_1, \ldots, x_n$, и одним выходом, имеющих сложность не более $k$.
+
+Пусть $S$ --- приведенная схема в базисе $B_0$ сложности $k$ со входами $x_1, \ldots, x_n$ и одним выходом. Построим таблицу $T(S, Num)$ высоты $k$ и ширины 3 для заданной схемы $S$ и выбранной нумерации $Num$ следующим образом:
+\begin{enumerate}[nolistsep]
+    \item В первый столбец по очереди записываем ФЭ соответствующие номеру $i$ в порядке от 1 до $n$.
+    \item В $k$-ую строчку второго и третьего столбца записываем элементы из множества $\{x_1, \ldots, x_n\} \cup \{1, \ldots, n\}$ --- номера входов, либо переменные, которые подаются на вход ФЭ, стоящему в первом столбце в этой же строчке.
+    \item Справа приписываем звёздочки к выходам.
+\end{enumerate}
+Например,
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.48\textwidth}
+        \begin{center}
+            \begin{tikzpicture}[
+                circuit/.style={isosceles triangle, isosceles triangle apex angle=60, draw=black, rotate=270, minimum size=0.6cm}
+                ]
+                %Nodes
+                \node[circuit](and 1) at (0, 1) {};
+                \node[circuit](not) at (0, 0) {};
+                \node[circuit](vee) at (2, 0.5) {};
+                \node[circuit](and 2) at (1, -1) {};
+                \node[scale=0.8, red] at (-0.5, 1) {$4$};
+                \node[scale=0.8, red] at (-0.5, 0) {$2$};
+                \node[scale=0.8, red] at (1.5, 0.5) {$1$};
+                \node[scale=0.8, red] at (0.5, -1) {$3$};
+                \node[scale=0.8] (text1) at (0, 1) {$\&$};
+                \node[scale=0.8] (text2) at (0, 0) {$-$};
+                \node[scale=0.8] (text3) at (2, 0.5) {$\vee$};
+                \node[scale=0.8] (text4) at (1, -1) {$\&$};
+                \node (x_1) at (0, 2) {$x_1$};
+                \node (x_2) at (2, 2) {$x_2$};
+                %Lines
+                \draw[arrows = {Circle[length=3pt, width=3pt, open]}-] (x_1) -- (0, 1.3) -- (-0.15, 1.3) -- ++ (0,-0.13);
+                \draw (0, 1.3) -- (1.85, 1.3) -- ++ (0, -0.63);
+                \draw[arrows = {Circle[length=3pt, width=3pt, open]}-] (x_2) -- (2, 1.5) -- (0.15, 1.5) -- ++ (0, -0.33);
+                \draw (2, 1.5) -- (2.15, 1.5) -- ++ (0, -0.83);
+                \draw (and 1) -- (not);
+                \draw (not) -- ++ (0, -0.6) -- ++ (0.85, 0) -- ++ (0, -0.23);
+                \draw (vee) -- ++ (0, -1.1) -- ++ (-0.85, 0) -- ++ (0, -0.23);
+                \draw[arrows = {-Circle[length=3pt, width=3pt]}] (and 2) -- ++ (0, -0.8);
+            \end{tikzpicture}
+        \end{center}
+        \caption{Схема $S$ с нумерацией $Num$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\textwidth}
+        \begin{center}
+            \begin{tabular}{|c|c|c|c}
+                 \cline{1-3}
+                 $\vee$ & $x_1$ & $x_2$ & \\
+                 \cline{1-3}
+                 --- & 4 & 4 & \\
+                 \cline{1-3}
+                 $\&$ & 2 & 1 & \textcolor{red}{$*$} \\
+                 \cline{1-3}
+                 $\&$ & $x_1$ & $x_2$ & \\
+                 \cline{1-3}
+            \end{tabular}
+            \vspace{1cm}
+        \end{center}
+    \caption{Таблица $T(S, Num)$}
+    \end{minipage}
+\end{figure}
+
+\begin{lemma}
+    Пусть $S$ --- приведенная схема в базисе $B_0$, а $Num_1$ и $Num_2$ --- две отличные друг от друга нумерации элементов схемы $S$. Тогда
+    \[
+        T(S, Num_1) \neq T(S, Num_2).
+    \]
+\end{lemma}
+
+\begin{proof}
+    Предположим, что $Num_1 \neq Num_2$, но при этом $T(S, Num_1) = T(S, Num_2)$. Рассмотрим для схемы $S$ монотонную нумерацию $Num_0$.  Нумерация $Num_0$ обладает следующим свойством: для любого $i$, $1 \leqslant i \leqslant L(S)$, на каждый вход $i$-го относительно нумерации $Num_0$ элемента подается либо переменная, либо выход элемента с номером, меньшим $i$.
+
+    Найдём элемент $E$ такой, что его номер различается в $Num_1$ ($p$-ый) и $Num_2$ ($q$-ый) и который имеет наименьший номер в нумерации $Num_0$. Очевидно, что второй и третий столбцы в строчках $p$ и $q$ будут совпадать в силу монотонности $Num_0$ и выбора $E$. Тогда в приведённой схеме найдутся два ФЭ, реализующих одну и ту же функцию, противоречие.
+\end{proof}
+
+\begin{lemma}
+    Найдётся $c>0$, такое что при всех значениях $k$ и $n$ ($k \geqslant n$) справедливо неравенство:
+    \[
+        N_{\leqslant}(k,n)\leqslant c^k k^k.
+    \]
+\end{lemma}
+
+\begin{proof}
+    Оценим сверху число таблиц, которые соответствуют всевозможным нумерациям элементов всех приведенных схем со входами $x_1, \ldots, x_n$ и одним выходом сложности $k$. Каждую клетку первого столбца можно заполнить не более чем тремя способами, каждую клетку второго и третьего столбцов таблицы --- не более чем $k+n$ способами. Кроме того, выбор места для пометки $*$ осуществляется $k+n$ способами. Поэтому всего таких таблиц не более $3^k(k + n)^{2k}(k + n)$ штук. Каждой приведенной схеме сложности $k$ в силу леммы 2 соответствует $k!$ различных таблиц. Следовательно,
+    \[
+        N_=(k, n) \leqslant \frac{3^k(k+n)^{2k}(k+n)}{k!}.
+    \]
+    При условии, что $k\geqslant n$, справедливо $k!\geqslant (k/3)^k$ и неравенство $2k<2^k$, получаем:
+    \[
+        N_= (k, n) \leqslant \frac{3^k(2k)^{2k}(2k)}{(k/3)^k}.
+    \]
+    Учитывая, что при $l\leqslant k$ $N_=(l, n) \leqslant N_= (k, n)$, получаем:
+    \[
+        N_{\leqslant} (k, n) = \sum_{l=0}^k N_=(l,n) \leqslant (k+1) N_=(k, n) \leqslant 144^k k^k.
+    \]
+\end{proof}
+
+\begin{theorem}[Мощностная нижняя оценка]
+    Для любого $\varepsilon > 0$ доля булевых функций $f$ от $n$ фиксированных переменных, удовлетворяющих условию \[L(f) \geqslant (1-\varepsilon) \dfrac{2^n}{n},\] стремится к 1 при $n\to \infty$.
+\end{theorem}
+
+\begin{proof}
+    Положим $k_{\varepsilon} = (1-\varepsilon) \dfrac{2^n}{n}$. Число функций $f$ от $n$ фиксированных переменных, удовлетворяющих условию $L(f) \leqslant k_{\varepsilon}$, не превосходит величины $N_{\leqslant}(k_{\varepsilon}, n)$. Поэтому достаточно установить, что при $n \to \infty$
+    \[
+        \frac{N_{\leqslant}(k_{\varepsilon}, n)}{2^{2^n}} \to 0 \quad \Longleftrightarrow \quad \log_2 \frac{N_{\leqslant}(k_{\varepsilon}, n)}{2^{2^n}} \to -\infty.
+    \]
+    
+    Применяя лемму 3, имеем:
+    \[
+        \log_2 \frac{N_{\leqslant}(k_{\varepsilon}, n)}{2^{2^n}} \leqslant k_{\varepsilon}\log_2 c + k_{\varepsilon} \log_2 k_{\varepsilon} - 2^n \leqslant (1-\varepsilon) \frac{2^n}{n} \log_2 c + (1-\varepsilon) \frac{2^n}{n}\log_2 (2^n) - 2^n = -\varepsilon 2^n + O\left(\frac{2^n}{n}\right).
+    \]
+    
+    Последнее выражение стремится к $-\infty$ при $n \to \infty$.
+\end{proof}
+
+\begin{corollary}
+    При $n \to \infty$ выполняется асимптотическое неравенство $L(n) \gtrsim \frac{2^n}{n}$.
+\end{corollary}
+
+\begin{theorem}[Усиленная мощностная нижняя оценка]
+    Для любого $\varepsilon > 0$ доля булевых функций $f$ от $n$ фиксированных переменных, удовлетворяющих условию
+    \[
+        L(f) \geqslant \frac{2^n}{n}\left(1+(1-\varepsilon)\frac{\log_2 n}{n}\right),
+    \]
+    стремится к 1 при $n\to \infty$.
+\end{theorem}
+
+\begin{proof}
+    Положим $k_\varepsilon = \dfrac{2^n}{n}+(1-\varepsilon)\dfrac{2^n\log_2 n}{n^2}$.
+
+    Установим, что при $n \to \infty$
+    \[
+        \log_2 \frac{N_{\leqslant}(k_\varepsilon, n)}{2^{2^n}} \to -\infty.
+    \]
+    Применяя лемму 3, имеем
+    \begin{multline*}
+        \log_2 \frac{N_{\leqslant}(k_\varepsilon, n)}{2^{2^n}} \leqslant k_{\varepsilon}\log_2 c + k_{\varepsilon} \log_2 k_{\varepsilon} - 2^n \leqslant \\ \leqslant O\left(\frac{2^n}{n}\right) + \left(\frac{2^n}{n}+(1-\varepsilon)\frac{2^n\log_2 n}{n^2}\right) \log_2\left(2 \frac{2^n}{n}\right) - 2^n = -\varepsilon \frac{2^n\log_2 n}{n} + O\left(\frac{2^n}{n}\right).
+    \end{multline*}
+\end{proof}

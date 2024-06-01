@@ -1,0 +1,66 @@
+\section{Разложение булевой функции по одной и нескольким переменным. Совершенная дизъюнктивная нормальная форма (СДНФ). Полнота системы \{$x\vee y$, $x \& y$, $\overline{x}$\}. Совершенная конъюнктивная нормальная форма (СКНФ).}
+
+\begin{definition}
+    Пусть $x$ --- переменная, $\sigma \in E$. Тогда 
+    $
+    x^\sigma \vcentcolon =
+    \begin{cases}
+        x,&\text{если $\sigma = 1$},\\
+        \overline{x},&\text{если $\sigma = 0$}.
+    \end{cases}
+    $
+\end{definition}
+
+\begin{remark}
+    $x^\sigma = 1 \Leftrightarrow x = \sigma$.
+\end{remark}
+
+\begin{definition}
+    $\sum\limits_{i = 1}^na_i \vcentcolon = a_1 \oplus a_2 \oplus \ldots \oplus a_n$, $\prod\limits_{i = 1}^na_i \vcentcolon = a_1 \cdot a_2 \cdot \ldots \cdot a_n$, $\bigvee\limits_{i = 1}^na_i \vcentcolon = a_1 \vee a_2 \vee \ldots \vee a_n$.
+\end{definition}
+
+\begin{theorem}
+    $\forall f \in P_2(n)$, $\forall m = 1, \ldots, n$
+    \[
+        f(x_1, \ldots, x_n) = \bigvee\limits_{(\sigma_1, \ldots, \sigma_m) \in E^m}\prod\limits_{i = 1}^mx_i^{\sigma_i} \cdot f(\sigma_1, \ldots, \sigma_m, x_{m + 1}, \ldots, x_n).
+    \]
+\end{theorem}
+
+\begin{proof}
+    Рассмотрим произвольный двоичный набор $(\alpha_1, \ldots, \alpha_m)$. Если $(\sigma_1, \ldots, \sigma_m) \ne (\alpha_1, \ldots, \alpha_m)$, то найдётся $i \in \{1, \ldots, m\}$, для которого $\sigma_i \ne \alpha_i$. Тогда $\alpha_i^{\sigma_i} = 0$. Единственным членом дизъюнкции, влияющим на её значение является $(\sigma_1, \ldots, \sigma_m) = (\alpha_1, \ldots, \alpha_m)$. Он равен $\alpha_1^{\sigma_1}\ldots\alpha_m^{\sigma_m}f(\alpha_1, \ldots, \alpha_m, x_{m + 1}, \ldots, x_n) = f(\alpha_1, \ldots, \alpha_m, x_{m+1}, \ldots, x_n)$.
+\end{proof}
+
+\begin{corollary}
+    При $m = 1$ получаем, так называемое, \textit{разложение функции $f$ по переменной $x_n$}:
+    \[f(x_1, \ldots, x_n) = x_n \cdot f(x_1, \ldots, x_{n - 1}, 1) \vee \overline{x}_n \cdot f(x_1, \ldots, x_{n - 1}, 0).\]
+\end{corollary}
+
+\begin{corollary}
+    При $m = n$ получаем \textit{совершенную дизъюнктивную нормальную форму}:
+    \[f(x_1, \ldots, x_n) = \bigvee\limits_{(\sigma_1, \ldots, \sigma_n): f(\sigma_1, \ldots, \sigma_n) = 1}x_1^{\sigma_1}\ldots x_n^{\sigma_n}.\]
+\end{corollary}
+
+\begin{theorem}
+    Каждая функция алгебры логики может быть получена суперпозициями из отрицания, конъюнкции и дизъюнкции.
+\end{theorem}
+
+\begin{proof}
+    Если функция не тождественно нулевая, то она реализуется с помощью СДНФ. Её можно рассматривать как формулу алгебры логики, построенную при помощи отрицаний, конъюнкций и дизъюнкций. Если функция тождественно нулевая, то её можно задать формулой $x_1 \cdot \overline{x}_1$, рассматриваемой относительно списка фиктивных переменных требуемой длины.
+\end{proof}
+
+\begin{theorem}
+    $\forall f \in P_2(n)$, $f\neq 1$ справедлива формула (\textit{совершенная конъюнктивная нормальная форма}).
+    \[
+    f(x_1, \ldots, x_n) = \prod_{(\delta_1, \ldots, \delta_n): f(\delta_1, \ldots, \delta_n) = 0}(x_1^{\overline{\delta_1}} \vee \ldots\vee x_n^{\overline{\delta_n}}).
+\]
+\end{theorem}
+
+\begin{proof}
+    Применяя разложение в виде СДНФ для $\overline{f(x_1, \ldots, x_n)}$, имеем
+    \begin{equation*}
+        \begin{split}
+        f(x_1, \ldots, x_n) &= \overline{\overline{f(x_1, \ldots, x_n)}} = \overline{\bigvee\limits_{(\delta_1, \ldots, \delta_n): \overline{f(\delta_1, \ldots, \delta_n)} = 1}x_1^{\delta_1}\ldots x_n^{\delta_n}} = \prod_{(\delta_1, \ldots, \delta_n): f(\delta_1, \ldots, \delta_n) = 0}\overline{(x_1^{\delta_1}\ldots x_n^{\delta_n})} = \\
+        &= \prod_{(\delta_1, \ldots, \delta_n): f(\delta_1, \ldots, \delta_n) = 0}(\overline{x_1^{\delta_1}} \vee \ldots\vee \overline{x_n^{\delta_n}}) = \prod_{(\delta_1, \ldots, \delta_n): f(\delta_1, \ldots, \delta_n) = 0}(x_1^{\overline{\delta_1}} \vee \ldots\vee x_n^{\overline{\delta_n}}).
+        \end{split}
+    \end{equation*}
+\end{proof}

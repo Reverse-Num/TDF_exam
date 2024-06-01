@@ -1,0 +1,74 @@
+\section{Двойственные и самодвойственные функции. Замкнутость класса $S$. Принцип двойственности. Лемма о несамодвойственной функции.}
+
+\begin{definition}
+    Функция $g(x_1, \ldots, x_n) \vcentcolon = \overline{f(\overline{x}_1, \ldots, \overline{x}_n)}$ называется \textit{двойственной} к функции $f(\widetilde{x}^n)$. Обозначение $g = f^\ast$.
+\end{definition}
+
+\begin{remark}
+    Очевидно, что $(f^\ast)^\ast = f$. Таблица для функции $f^\ast$ получается инвертированием всех битов таблицы для функции $f$.
+\end{remark}
+
+\begin{definition}
+    Если $f = f^\ast$, то функция $f$ называется \textit{самодвойственной}.
+\end{definition}
+
+\begin{definition}
+    $S \vcentcolon = \{f \in P_2 : f = f^\ast\}$ --- класс \textit{самодвойственных} функций.
+\end{definition}
+
+\begin{theorem}
+    Класс $S$ замкнут.
+\end{theorem}
+
+\begin{proof}
+    Добавление/изъятие фиктивной переменной не выводит за пределы класса.\\ 
+    Доказательство проведём индукцией для формулы $\Phi$, которая реализует функцию $g$. База $\Phi = x_i$ --- верно. Предположим, что $\Phi_i$ лежит в $S$ как функция $f_i(x_1,\ldots,x_m)$ (при необходимости добавим фиктивные переменные). Рассмотрим произвольную формулу над $S$, $\Phi = f(\Phi_1, \ldots, \Phi_n)$, которая реализует функцию
+    \[
+        g(x_1,\ldots, x_m) = f(f_1(x_1, \ldots, x_m), \ldots, f_n(x_1, \ldots, x_m)).
+    \]
+    Тогда, поскольку $f, f_i \in S$,
+    \begin{multline*}
+        g^\ast(x_1,\ldots, x_m) = \overline{f(f_1(\overline{x}_1, \ldots, \overline{x}_m), \ldots, f_n(\overline{x}_1, \ldots, \overline{x}_m))} = \overline{f(\overline{f_1(x_1, \ldots, x_m)}, \ldots, \overline{f_n(x_1, \ldots, x_m)})} = \\ = f(f_1(x_1, \ldots, x_m), \ldots, f_n(x_1, \ldots, x_m)) = g(x_1,\ldots, x_m) \Rightarrow g \in S.
+    \end{multline*}
+    
+    А значит, любая суперпозиция функций из $S$ также является функцией из $S$.
+\end{proof}
+
+\begin{theorem}[Принцип двойственности]
+    Если в произвольной формуле $\Phi$, реализующей булеву функцию $f$, заменить все функциональные символы на функциональные символы двойственных функций, то получившаяся формула $\Phi^\ast$ будет реализовывать функцию $f^\ast$.
+\end{theorem}
+
+\begin{proof}
+    Проведём доказательство по индукции. База $\Phi = x_i, \Phi^\ast = \overline{x_i}$. Пусть теорема верна для формул $\Phi_1, \ldots, \Phi_m$, $\Phi_i = f_i(x_1,\ldots x_n)$. Докажем для $\Phi = f_0(\Phi_1, \ldots, \Phi_m)$.
+    По условию теоремы формула $\Phi$ задает булеву функцию $f(x_1, \ldots, x_n)$, тогда
+
+    \[\Phi = f(x_1, \ldots, x_n) = f_0(f_1(x_1, \ldots, x_n), \ldots, f_m(x_1, \ldots, x_n)).\]
+    Рассмотрим двойственную ей формулу:
+    \begin{multline*}
+        \Phi^\ast = f_0^\ast (f_1^\ast(x_1, \ldots, x_n), \ldots, f_m^\ast(x_1, \ldots, x_n)) = f_0^\ast (\overline{f_1(\overline{x}_1, \ldots, \overline{x}_n)}, \ldots, \overline{f_m(\overline{x}_1, \ldots, \overline{x}_n)}) = \\ = \overline{f_0(\overline{\overline{f_1(\overline{x}_1, \ldots, \overline{x}_n)}}, \ldots, \overline{\overline{f_m(\overline{x}_1, \ldots, \overline{x}_n)}})} = \overline{f_0(f_1(\overline{x}_1, \ldots, \overline{x}_n), \ldots, f_m(\overline{x}_1, \ldots, \overline{x}_n))} = f^\ast(x_1,\ldots, x_n).
+    \end{multline*}
+\end{proof}
+
+\begin{lemma}[О несамодвойственной функции]
+    Если $f_S \in P_2 \setminus S$, то из $f_S$ и $\overline{x}$ суперпозициями можно получить константу.
+\end{lemma}
+
+\begin{proof}
+    Из $f_S \notin S$, найдётся $(\alpha_1, \ldots, \alpha_n) \in B_n$ такое, что $f_S(\alpha_1, \ldots, \alpha_n) = f_S(\overline{\alpha}_1, \ldots, \overline{\alpha}_n)$. Рассмотрим функции $\varphi_i(x) \vcentcolon = x^{\alpha_i}$ ($i = 1, \ldots, n$). Положим $\varphi(x) \vcentcolon = f_S(\varphi_1(x), \ldots, \varphi_n(x))$. Очевидно, функция $\varphi$ получена суперпозициями из $f_S$ и $\overline{x}$. Имеем:
+    \begin{multline*}
+        \varphi(0) = f_S(\varphi_1(0), \ldots, \varphi_n(0)) = f_S(0^{\alpha_1}, \ldots, 0^{\alpha_n}) = f_S(\overline{\alpha_1}, \ldots, \overline{\alpha_n}) = f_S(\alpha_1, \ldots, \alpha_n) =\\ = f_S(1^{\alpha_1}, \ldots, 1^{\alpha_n}) = f_S(\varphi_1(1), \ldots, \varphi_n(1)) = \varphi(1).
+    \end{multline*}
+    Значит, $\varphi$ --- константа.
+\end{proof}
+
+\begin{proposal}
+    $\abs{S \cap P_2(n)} = 2^{2^{n - 1}}$.
+\end{proposal}
+
+\begin{proof}
+    Т.\,к. на инвертированных наборах функция $f \in S \cap P_2(n)$ принимает инвертированное значение, то её можно задать, заполнив половину таблицы, т.\,е. она однозначно определяется на $2^n / 2 = 2^{n - 1}$ наборах.
+\end{proof}
+
+\begin{exercise}
+    Докажите, что $S = [\{x \oplus y \oplus z, xy \vee xz \vee yz, \overline{x}\}]$.
+\end{exercise}
