@@ -1,4 +1,4 @@
-all: tdfexaml.pdf
+all: tdfexam.pdf
 
 tdfexam.pdf: tdfexam.tex preamble.sty questions/*
 	lualatex $<
