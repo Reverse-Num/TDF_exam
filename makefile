@@ -1,6 +1,6 @@
-all: algcol.pdf
+all: tdfexaml.pdf
 
-algcol.pdf: algcol.tex preamble.sty questions/*
+tdfexam.pdf: tdfexam.tex preamble.sty questions/*
 	lualatex $<
 
 clean:
