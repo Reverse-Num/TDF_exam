@@ -5,35 +5,35 @@
     \[
         L^S(n) = \max_{f(x_1,\ldots,x_n)\in S} L(f).
     \]
-
-    \begin{theorem}
-        При $n\to \infty$ справедливо асимптотическое равенство
-        \[
-            L^S(n) \sim \frac{2^{n-1}}{n}.
-        \]
-    \end{theorem}
-
-    \begin{proof}
-        Если в доказательстве мощностной оценки функции Шенона (см. билет 32) положить
-        \[
-            k_{\varepsilon} = (1-\varepsilon)\frac{2^{n-1}}{n}
-        \] 
-        и сравнить величину $N_{\leqslant}(k_{\varepsilon}, n)$ с $2^{2^{n-1}}$ --- числом самодвойственных функций от $n$ переменных, то получается нижняя оценка:
-        \[
-            L^S(n)\gtrsim \frac{2^{n-1}}{n-1}\sim \frac{2^{n-1}}{n}.
-        \]
-        
-        Построим схему в базисе $B_0$ для произвольной самодвойственной функции $f(x_1, \ldots, x_n)$. Положим $g(x_1, \ldots, x_{n-1}) = f(x_1, \ldots x_{n-1}, 0)$. Тогда
-        $f(x_1, \ldots, x_{n-1}, 1) = \overline{f(\overline{x}_1, \ldots \overline{x}_{n-1}, 0)} = \overline{g(\overline{x}_1, \ldots, \overline{x}_{n-1})}$.
-
-        Нетрудно видеть (верно при $x_n=0$ и $x_n = 1$, т.\,к. $x\oplus 1 = \overline{x}$), что 
-        \[
-            f(x_1, \ldots, x_n) = g(x_1 \oplus x_n, x_2 \oplus x_n, \ldots, x_{n-1} \oplus x_n) \oplus x_n.
-        \]
-
-        Тогда схема функции $f$ будет состоять из схемы $S_g$ функции $g$ и $n$ схемами $S_{\oplus}$ суммы по модулю 2. Сумма по модулю 2 реализована на рисунке 4 (см. билет 32). В силу оценки роста функции Шенона, имеем
-        \[
-            L^S(n) = L(f) = L(S_g) + nL(S_{\oplus}) = \frac{2^{n-1}}{n-1} + 4n \lesssim \frac{2^{n-1}}{n}.
-        \]
-    \end{proof}
 \end{definition}
+
+\begin{theorem}
+    При $n\to \infty$ справедливо асимптотическое равенство
+    \[
+        L^S(n) \sim \frac{2^{n-1}}{n}.
+    \]
+\end{theorem}
+
+\begin{proof}
+    Если в доказательстве мощностной оценки функции Шеннона (см. билет 32) положить
+    \[
+        k_{\varepsilon} = (1-\varepsilon)\frac{2^{n-1}}{n}
+    \]
+    и сравнить величину $N_{\leqslant}(k_{\varepsilon}, n)$ с $2^{2^{n-1}}$ --- числом самодвойственных функций от $n$ переменных, то получается нижняя оценка:
+    \[
+        L^S(n)\gtrsim \frac{2^{n-1}}{n-1}\sim \frac{2^{n-1}}{n}.
+    \]
+
+    Построим схему в базисе $B_0$ для произвольной самодвойственной функции $f(x_1, \ldots, x_n)$. Положим $g(x_1, \ldots, x_{n-1}) = f(x_1, \ldots x_{n-1}, 0)$. Тогда
+    $f(x_1, \ldots, x_{n-1}, 1) = \overline{f(\overline{x}_1, \ldots \overline{x}_{n-1}, 0)} = \overline{g(\overline{x}_1, \ldots, \overline{x}_{n-1})}$.
+
+    Нетрудно видеть (верно при $x_n=0$ и $x_n = 1$, т.\,к. $x\oplus 1 = \overline{x}$), что
+    \[
+        f(x_1, \ldots, x_n) = g(x_1 \oplus x_n, x_2 \oplus x_n, \ldots, x_{n-1} \oplus x_n) \oplus x_n.
+    \]
+
+    Тогда схема функции $f$ будет состоять из схемы $S_g$ функции $g$ и $n$ схемами $S_{\oplus}$ суммы по модулю 2. Сумма по модулю 2 реализована на рисунке 4 (см. билет 32). В силу оценки роста функции Шеннона, имеем
+    \[
+        L^S(n) = L(f) = L(S_g) + nL(S_{\oplus}) \lesssim \frac{2^{n-1}}{n-1} + 4n \sim \frac{2^{n-1}}{n}.
+    \]
+\end{proof}

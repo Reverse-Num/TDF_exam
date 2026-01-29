@@ -8,7 +8,7 @@
     Докажем, что все остатки от деления на $k$ чисел $a, \ldots, (k-1)a$ различны.\\
     В самом деле, если бы нашлись 2 числа $ia$, $ja$ ($1\leqslant i < j \leqslant k-1$), имеющие одинаковые остатки, то $ja-ia = (j-i)a$ делилось бы на $k$. Т.\,к $1\leqslant(j-i) \leqslant k-2$ не делится на $k$, то $a$ делится на $k$, противоречие. А значит,
     \[
-        a \cdot 2a \cdot \ldots \cdot (k-1)a \equiv 1\cdot 2 \cdot \ldots \cdot (k-1) \pmod k \Leftrightarrow (k-1)!\,a^{k-1} \equiv (k-1)! \pmod k.
+        a \cdot 2a \cdot \ldots \cdot (k-1)a \equiv 1\cdot 2 \cdot \ldots \cdot (k-1) \pmod k \quad \Longleftrightarrow \quad (k-1)!\,a^{k-1} \equiv (k-1)! \pmod k.
     \]
     Т.\,к. $(k-1)! \not \equiv 0 \pmod k$, то $a^{k-1} \equiv 1 \pmod k$.
 \end{proof}

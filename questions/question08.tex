@@ -40,7 +40,7 @@
 \end{lemma}
 
 \begin{proof}
-    Рассмотрим многочлен Жегалкина функции $f$:
+    Рассмотрим многочлен Жегалкина функции $f_L$:
         \[
             f_L(x_1, \ldots, x_n) = \sum_{\{i_1, \ldots, i_s\} \subseteq \{1, \ldots, n\}}a_{i_1\ldots i_s}x_{i_1}\ldots x_{i_s}.
         \]
@@ -48,7 +48,7 @@
         \[
             f_L(x_1, \ldots, x_n) = x_1x_2f_1(x_3, \ldots, x_n) \oplus x_1f_2(x_3, \ldots, x_n) \oplus x_2f_3(x_3, \ldots, x_n) \oplus f_4(x_3, \ldots, x_n).
         \]
-        Т.\,к. полином Жегалкина единственный, то $f_1 \ne 0$. Значит, найдутся такие $\alpha_3, \ldots, \alpha_n \in E$, что $f_1(\alpha_3, \ldots, \alpha_n) = 1$. Рассмотрим функцию $\varphi(x_1, x_2) \vcentcolon = f_L(x_1, x_2, \alpha_3, \ldots, \alpha_n)$. Имеем $\varphi(x_1, x_2) = x_1x_2 \oplus \alpha x_1 \oplus \beta x_2 \oplus \gamma$ для каких-то $\alpha, \beta, \gamma \in E$. Избавимся от линейных членов:
+        Т.\,к. полином Жегалкина единственный, то $f_1 \ne 0$. Значит, найдутся такие $\alpha_3, \ldots, \alpha_n \in E$, что $f_1(\alpha_3, \ldots, \alpha_n) = 1$. Рассмотрим функцию $\varphi(x_1, x_2) \vcentcolon = f_L(x_1, x_2, \alpha_3, \ldots, \alpha_n)$. Имеем $\varphi(x_1, x_2) = x_1x_2 \oplus \alpha x_1 \oplus \beta x_2 \oplus \gamma$ для каких-то $\alpha, \beta, \gamma \in E$. Избавимся от линейных членов (при необходимости заменяя $x_i \oplus 1$ на $\overline{x}_i$, в противном случае оставляя $x_i$):
         \[
             \varphi(x_1 \oplus \beta, x_2 \oplus \alpha) = (x_1 \oplus \beta)(x_2 \oplus \alpha) \oplus \alpha(x_1 \oplus \beta) \oplus \beta(x_2 \oplus \alpha) + \gamma = x_1x_2 + (\alpha\beta \oplus \gamma).
         \]

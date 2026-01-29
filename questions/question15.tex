@@ -9,7 +9,7 @@
         \item Получение констант.
         Построим сначала константы, начиная с $k - 1$:
         \[
-            k-1 = \max(x, \ldots, x+k-1).
+            k-1 = \max(x, x+1, \ldots, x+k-1), \text{ где } x+i = \overline{\overline{\ldots \overline{x}}}.
         \]
         Остальные константы получаются при помощи функции $x + 1 \pmod k$.
         \item Построение функций $I_i(x), i = 0, 1, \ldots, k - 1$:
@@ -40,7 +40,7 @@
             \]
         \end{enumerate}
     \end{enumerate}
-    Таким образом, получем $\sim x$ и выражение системы из теоремы 3 через систему $\{\max(x, y), \overline{x}\}$.
+    Таким образом, получаем $\sim x$ и выражение системы из теоремы 3 через систему $\{\max(x, y), \overline{x}\}$.
 \end{proof}
 
 \begin{definition}

@@ -1,10 +1,12 @@
 \ProvidesPackage{preamble}
 
 % Корректность отображения всех шрифтов, кодировок и мат. символов
-\usepackage[T2A]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[T2A]{fontenc}
+%\usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
 \usepackage{amssymb, amsmath, amsthm, mathtools}
+\usepackage{amsopn}
+\usepackage{amstext}
 
 % Настройки шрифта
 \usepackage{fontspec}
@@ -27,10 +29,15 @@
 
 % Вставка картинок
 \usepackage{graphicx}
-\graphicspath{img/}
+\graphicspath{out/}
 
 % Asymptote для иллюстраций
-\usepackage{asymptote}
+\usepackage[inline]{asymptote}
+\begin{asydef}
+    settings.outformat = "pdf";
+    settings.render = 0;
+\end{asydef}
+
 
 % tikz для графики
 \usepackage{tikz}
@@ -66,7 +73,7 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\K}{\mathbb{K}}
-\renewcommand{\C}{\mathbb{C}}
+\newcommand{\C}{\mathbb{C}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\A}{\mathcal{A}}
 \newcommand{\B}{\mathcal{B}}
