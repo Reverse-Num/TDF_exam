@@ -13,7 +13,7 @@
 \end{theorem}
 
 \begin{proof}
-    В самом деле, наша функция определяется значениями, которая она принимает на $k^n$ наборах. Для каждого набора $k$ значений, а значит, способов выбрать значения $k^{k^n}$.
+    В самом деле, наша функция определяется значениями, которые она принимает на $k^n$ наборах. Для каждого набора $k$ значений, а значит, способов выбрать значения $k^{k^n}$.
 \end{proof}
 
 \begin{definition}
@@ -60,7 +60,7 @@
 \begin{enumerate}[nolistsep]
     \item \textit{Константы} $0, 1, \ldots, k - 1$ и \textit{тождественная функция} $x$.
     \item $\overline{x} \vcentcolon = x + 1 \pmod k$ --- \textit{отрицание Поста}.
-    \item ${\sim}x \vcentcolon = k - 1 - x$ --- \textit{отрицание Лукашевича}
+    \item ${\sim}x \vcentcolon = k - 1 - x$ --- \textit{отрицание Лукашевича}.
     \item 
         $
         I_\sigma(x) \vcentcolon =
@@ -87,7 +87,7 @@
 
 \begin{enumerate}[nolistsep]
     \item Операции $\min(x_1, x_2)$, $\max(x_1, x_2)$, $x_1 \cdot x_2 \pmod k$, $x_1 + x_2 \pmod k$ ассоциативны и коммутативны.
-    \item Дистрибутивности: $(x_1 \vee x_2) \& x_3 = (x_1 \& x_3) \vee (x_2 \& x_3)$, $(x_1 \& x_2) \vee x_3 = (x_1 \vee x_3) \& (x_2 \vee x_3)$, $(x_1 + x_2) \cdot x_3 = x_1 \cdot x_3 + x_2 \cdot x_3$.
+    \item Дистрибутивности: $(x_1 \vee x_2) \& x_3 = (x_1 \& x_3) \vee (x_2 \& x_3)$, $(x_1 \& x_2) \vee x_3 = (x_1 \vee x_3) \& (x_2 \vee x_3)$, $(x_1 + x_2) \cdot x_3 = x_1 \cdot x_3 + x_2 \cdot x_3 \pmod k$.
     \item При $k > 2$: ${\sim}({\sim}x) = x$, $\overline{\overline{x}} = x + 2 \pmod k$.
     \item ${\sim}(\min(x_1, x_2)) = \max({\sim}x_1, {\sim}x_2)$ --- аналог закона де Моргана. Заметим, что для отрицания Поста аналогичное равенство при $k > 3$ тождеством не является.
 \end{enumerate}

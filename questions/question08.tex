@@ -15,7 +15,7 @@
         g(x_1,\ldots, x_m) = f(f_1(x_1, \ldots, x_m), \ldots, f_n(x_1, \ldots, x_m)).
     \]
     
-    Тогда, поскольку $f = a_1x_1 \oplus \ldots \oplus a_nx_n + a_0$, $f_i$ $\in L$,
+    Тогда, поскольку $f = a_1x_1 \oplus \ldots \oplus a_nx_n \oplus a_0$, $f_i$ $\in L$,
     \begin{multline*}
         g(x_1,\ldots, x_m) = f(f_1(x_1, \ldots, x_m), \ldots, f_n(x_1, \ldots, x_m)) = \\ = f(a^1_1x_1 \oplus \ldots \oplus a^1_mx_m \oplus a^1_0,\, \ldots,\, a^n_1x_1 \oplus \ldots \oplus a^n_mx_m \oplus a^n_0) = \\ = a_1(a^1_1x_1 \oplus \ldots \oplus a^1_mx_m \oplus a^1_0) \oplus \ldots \oplus a_n(a^n_1x_1 \oplus \ldots \oplus a^n_mx_m \oplus a^n_0) \oplus a_0 = \\ = \left(\sum_{i_1 = 1}^n a_{i_1} a_1^{i_1}\right) x_1 \oplus \ldots \oplus \left(\sum_{i_m = 1}^n a_{i_m} a_m^{i_m}\right) x_m \oplus \left(\sum_{i_0 = 1}^n a_{i_0} a_0^{i_0} \oplus a_0\right) \Rightarrow g \in L.
     \end{multline*}
@@ -50,7 +50,7 @@
         \]
         Т.\,к. полином Жегалкина единственный, то $f_1 \ne 0$. Значит, найдутся такие $\alpha_3, \ldots, \alpha_n \in E$, что $f_1(\alpha_3, \ldots, \alpha_n) = 1$. Рассмотрим функцию $\varphi(x_1, x_2) \vcentcolon = f_L(x_1, x_2, \alpha_3, \ldots, \alpha_n)$. Имеем $\varphi(x_1, x_2) = x_1x_2 \oplus \alpha x_1 \oplus \beta x_2 \oplus \gamma$ для каких-то $\alpha, \beta, \gamma \in E$. Избавимся от линейных членов (при необходимости заменяя $x_i \oplus 1$ на $\overline{x}_i$, в противном случае оставляя $x_i$):
         \[
-            \varphi(x_1 \oplus \beta, x_2 \oplus \alpha) = (x_1 \oplus \beta)(x_2 \oplus \alpha) \oplus \alpha(x_1 \oplus \beta) \oplus \beta(x_2 \oplus \alpha) + \gamma = x_1x_2 + (\alpha\beta \oplus \gamma).
+            \varphi(x_1 \oplus \beta, x_2 \oplus \alpha) = (x_1 \oplus \beta)(x_2 \oplus \alpha) \oplus \alpha(x_1 \oplus \beta) \oplus \beta(x_2 \oplus \alpha) \oplus \gamma = x_1x_2 \oplus (\alpha\beta \oplus \gamma).
         \]
 
         Отсюда $x_1x_2 = \varphi(x_1 \oplus \beta, x_2 \oplus \alpha) \oplus (\alpha\beta \oplus \gamma)$. Теперь вспомним, что $x \oplus 1 = \overline{x}$, поэтому если $\alpha\beta \oplus \gamma = 1$, то получаем $x_1x_2 = \overline{\varphi(\ldots)}$. Итак, мы получили $x_1 \cdot x_2$ как суперпозицию $f_L$, $0$, $1$ и $\overline{x}$.

@@ -29,7 +29,7 @@
 
 % Вставка картинок
 \usepackage{graphicx}
-\graphicspath{out/}
+\graphicspath{{out/}}
 
 % Asymptote для иллюстраций
 \usepackage[inline]{asymptote}
@@ -52,17 +52,24 @@
 % Римские числа из арабских
 \newcommand{\rnum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 
+% Цвета
+\usepackage{xcolor}
+\definecolor{linkcolor}{RGB}{0, 102, 204} % Красивый синий цвет
+
 % Гиперссылки
 \usepackage{hyperref}
 \hypersetup{
-    frenchlinks=true,
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=linkcolor,
+    citecolor=black,
     linktocpage=true,
+    pdftitle={ТДФ\_Экзамен},
+    pdfauthor={Д. А. Чепелев},
 }
 
-\urlstyle{same}
 
-% Цвета
-\usepackage{xcolor}
+\urlstyle{same}
 
 % Несколько столбцов
 \usepackage{multicol}
